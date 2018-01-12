@@ -2,9 +2,10 @@
   "name": "journeybuddies",
   "version": "1.0.0",
   "description": "Prototype",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app_hook.js"
   },
   "repository": {
     "type": "git",
@@ -12,6 +13,16 @@
   },
   "author": "Chris Buggy",
   "license": "ISC",
+  "dependencies": {
+    "babel-preset-es2015-node6": "^0.4.0",
+    "babel-register": "^6.26.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.9",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.14.11"
+  },
   "bugs": {
     "url": "https://github.com/chrisbug/journeybuddies/issues"
   },
