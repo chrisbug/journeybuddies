@@ -4,4 +4,6 @@ import * as userController from '../controllers/user.controller';
 const router = express.Router();
 
 router.route('/')
-  .get('User routes work');
+  .get(userController.testUser);
+
+export default router;
