@@ -4,9 +4,14 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import jwt from 'jsonwebtoken';
+
+
 import config from './config';
 import User from './models/user.model';
 import userRoutes from './routes/user.route';
+import authRoutes from './routes/auth.route';
+
+
 const app = express();
 // set the port
 const port = process.env.PORT || 8080;
@@ -35,6 +40,7 @@ app.get('/', function(req, res){
 });
 
 app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
 
 app.use((req, res, next) => {
   res.status(404).send('<h2 align=center>Page Not Found!</h2>');
