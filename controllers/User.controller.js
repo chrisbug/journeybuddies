@@ -10,7 +10,8 @@ export const setup = (req, res) => {
   let chris = new User({
     name: 'Chris Buggy',
     password: 'password',
-    admin: true
+    admin: true,
+    jwt: ''
   });
 
   //saving chris to db
@@ -55,10 +56,16 @@ export const authenticateUser = (req, res) => {
           admin: user.admin
         };
         //supper secret will become a private key read in
-        var token = jwt.sign(payload, 'superSecret',
+        let token = jwt.sign(payload, 'superSecret',
         {
           expiresIn: 1440 // one day.
         });
+
+        //store token in user in DB
+        //User.update( {_id:user._id}, {jwt: token});
+        user.jwt = token;
+        user.save()
+        console.log(user);
 
         //return the infomation including token as jsonwebtoken
         res.json({
@@ -66,6 +73,7 @@ export const authenticateUser = (req, res) => {
           message: 'Enjoy your token',
           token: token
         });
+
       }
     }
   });
