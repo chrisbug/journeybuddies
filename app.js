@@ -12,9 +12,13 @@ import userRoutes from './routes/user.route';
 import authRoutes from './routes/auth.route';
 
 
+
 const app = express();
 // set the port
 const port = process.env.PORT || 8080;
+
+const apiRoutes = express.Router();
+
 //Connect to mongoose
 mongoose.connect(config.database);
 
@@ -39,8 +43,10 @@ app.get('/', function(req, res){
   res.send('Hello api is working');
 });
 
-app.use('/api/user', userRoutes);
-app.use('/api/auth', authRoutes);
+//app.use('/api/auth', authRoutes);
+app.use('/user', userRoutes);
+
+app.use('/api', authRoutes);
 
 app.use((req, res, next) => {
   res.status(404).send('<h2 align=center>Page Not Found!</h2>');

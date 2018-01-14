@@ -1,43 +1,38 @@
 import express from 'express';
 import User from '../models/user.model';
+//import userRoutes from './routes/user.route';
 import jwt from 'jsonwebtoken';
 
-export const authenticateUser = (req, res) => {
-  let name = req.body.name;
-  let password = req.body.password;
-  User.findOne({
-    name: name
-  },
-  function(err, user){
-    if(err){
-      console.log('error');
-      res.json('error on searching');
-    } if(!user){
-      res.json({success: false, message: 'authenticate failed user not found.'});
-    } else if (user){
-      //check password here
-      if(user.password != password){
-        res.json({success: false, message: 'Authhenication failed invalid password'});
-      } else {
-        // if user is found and password is right
-        // create a token with only our given payload
-        // don't pass in the entire user since that has the password
-        const payload ={
-          admin: user.admin
-        };
-        //supper secret will become a private key read in
-        var token = jwt.sign(payload, 'superSecret',
-        {
-          expiresIn: 1440 // one day.
-        });
 
-        //return the infomation including token as jsonwebtoken
-        res.json({
-          success: true,
-          message: 'Enjoy your token',
-          token: token
-        });
+
+export const apiRoute = function(req, res, next){
+  let secert = 'superSecret';
+  //Check for token in body, query or headers
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  //decode the token
+  if(token){
+
+    //verfies secerte
+    jwt.verify(token, secert, function(err, decoded){
+      if(err){
+        return res.json({success: false, message: 'failed to authenticate token.'});
+      } else {
+        //if the token is verfied save the request for use in other authRoutes
+        req.decoded = decoded;
+        next();
       }
-    }
-  });
+    });
+  } else {
+
+    //if there is no token return error
+    return res.status(403).send({
+      success: false,
+      message: 'No token provided'
+    });
+  }
+};
+
+export const Testy = (req, res) => {
+  return res.json({'success': true, message: 'Auth works!!!!'});
 }

@@ -12,4 +12,7 @@ router.route('/setup')
 router.route('/showusers')
   .get(userController.showUsers);
 
+router.route('/authenticate')
+  .post(userController.authenticateUser);
+
 export default router;
