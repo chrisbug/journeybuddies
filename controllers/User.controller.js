@@ -26,6 +26,39 @@ export const setup = (req, res) => {
   })
 }
 
+export const signupUser = (req, res) => {
+  let newuser = new User({
+    username: req.body.username,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    password: req.body.password,
+    groupId: '',
+    admin: false,
+    jwt: ''
+  });
+
+  User.findOne({
+    username: newuser.username
+  },
+  function(err, user){
+    if(err){
+      return res.json({'success': false, 'message': 'error try again'});
+    } if(!user){
+        newuser.save(function(err){
+          if(err){
+            console.log(err);
+            return res.json({'success': false, 'message': 'error with test user that aint good'});
+          } else {
+              console.log(newuser.username + ' has been added');
+              return res.json({'success': true, 'message': newuser.username + ' has been added to db'});
+            }
+        });
+    } else {
+        return res.json({'suucess': false, 'message': 'error user already exists'})
+      }
+      });
+}
+
 export const showUsers = (req, res) => {
   User.find({}, function(err, users){
     res.json(users);
@@ -33,10 +66,10 @@ export const showUsers = (req, res) => {
 };
 
 export const authenticateUser = (req, res) => {
-  let name = req.body.name;
+  let name = req.body.username;
   let password = req.body.password;
   User.findOne({
-    name: name
+    username: username
   },
   function(err, user){
     if(err){

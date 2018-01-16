@@ -12,7 +12,7 @@ router.route('/showusers')
 router.route('/authenticate')
   .post(userController.authenticateUser);
 
-router.route('/setup')
-  .get(userController.setup);
+router.route('/signup')
+  .post(userController.signupUser);
 
 export default router;
