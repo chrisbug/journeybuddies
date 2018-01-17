@@ -28,7 +28,7 @@ export const setup = (req, res) => {
 
 export const signupUser = (req, res) => {
   let newuser = new User({
-    username: req.body.username,
+    email: req.body.email,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     password: req.body.password,
@@ -38,7 +38,7 @@ export const signupUser = (req, res) => {
   });
 
   User.findOne({
-    username: newuser.username
+    email: newuser.email
   },
   function(err, user){
     if(err){
@@ -49,8 +49,8 @@ export const signupUser = (req, res) => {
             console.log(err);
             return res.json({'success': false, 'message': 'error with test user that aint good'});
           } else {
-              console.log(newuser.username + ' has been added');
-              return res.json({'success': true, 'message': newuser.username + ' has been added to db'});
+              console.log(newuser.firstName + ' has been added');
+              return res.json({'success': true, 'message': newuser.email + ' has been added to db'});
             }
         });
     } else {
@@ -66,10 +66,10 @@ export const showUsers = (req, res) => {
 };
 
 export const authenticateUser = (req, res) => {
-  let name = req.body.username;
+  let email = req.body.email;
   let password = req.body.password;
   User.findOne({
-    username: username
+    email: email
   },
   function(err, user){
     if(err){
