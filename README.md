@@ -9,7 +9,7 @@ help clients enjoy a more stress free holiday.
 * Integration with Google maps for navigation.
 * Task organizer for whole group.
 * Photo sharing.
-
+---
 ## Built on MEAN Stack
 ---
 Mongo
