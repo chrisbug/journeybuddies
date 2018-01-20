@@ -10,17 +10,18 @@ export class AuthenticationService {
   constructor(private http:Http) {
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser && currentUser.token;
+    console.log(this.token);
   }
 
-  login(username: string, password): Observable<boolean> {
-    return this.http.post('user/authenticate', JSON.stringify({username: username, password: password}))
+  login(email: string, password:string): Observable<boolean> {
+    return this.http.post('user/authenticate', JSON.stringify({email: email, password: password}))
     .map((response: Response) => {
       let token = response.json() && response.json().token;
       if(token){
         this.token = token;
 
-        //store username and jwt token in local storage to keep
-        localStorage.setItem('currentUser', JSON.stringify({username: username, token: token}));
+        //store email and jwt token in local storage to keep
+        localStorage.setItem('currentUser', JSON.stringify({email: email, token: token}));
 
         //return true to indicate succeslful login
         return true;

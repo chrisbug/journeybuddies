@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 
 @Injectable()
-export class AuthGuard implemnets CanActivate {
+export class AuthGuard implements CanActivate {
 
   constructor(private router: Router){}
 
   canActivate(){
-    if(localStorage.getItem('currentUser'){
+    if(localStorage.getItem('currentUser')){
       //user exists so logged in
       return true
     }
