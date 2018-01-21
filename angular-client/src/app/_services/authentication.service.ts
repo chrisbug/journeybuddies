@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
-import { Observable } from '@rxjs';
+import { Http, Headers } from '@angular/http';
+import { Observable } from 'rxjs';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthenticationService {
   public token: string;
 
-  constructor(private http:Http) {
+  constructor(private http:HttpClient) {
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser && currentUser.token;
     console.log(this.token);
   }
 
   login(email: string, password:string): Observable<boolean> {
-    return this.http.post('user/authenticate', JSON.stringify({email: email, password: password}))
-    .map((response: Response) => {
-      let token = response.json() && response.json().token;
+    console.log(email + ' ' + password)
+    return this.http.post('http://127.0.0.1:8080/user/authenticate', {email: email, password: password})
+    .map((response: HttpResponse) => {
+      console.log(response)
+      let token = response && response.token;
       if(token){
         this.token = token;
 
