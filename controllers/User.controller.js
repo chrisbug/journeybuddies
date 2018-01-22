@@ -1,41 +1,23 @@
 import express from 'express';
 import User from '../models/user.model';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 
-export const testUser = (req, res) => {
-  return res.json({'success': true, 'message': 'User route works'});
-}
 
-export const setup = (req, res) => {
-  let chris = new User({
-    name: 'Chris Buggy',
-    password: 'password',
-    admin: true,
-    jwt: ''
-  });
-
-  //saving chris to db
-  chris.save(function(err){
-    if(err){
-      console.log(err);
-      return res.json({'success': false, 'message': 'error with test user that aint good'});
-    } else {
-      console.log(chris.name + ' has been added');
-      return res.json({'success': true, 'message': chris});
-    }
-  })
-}
 
 export const signupUser = (req, res) => {
   let newuser = new User({
     email: req.body.email,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    password: req.body.password,
     groupId: '',
     admin: false,
-    jwt: ''
+    jwt: '',
+    salt : null,
+    hash: null,
   });
+  newuser.salt = crypto.randomBytes(16).toString('hex');
+  newuser.hash = crypto.pbkdf2Sync(req.body.password, newuser.salt, 1000, 64, 'sha512').toString('hex');
 
   User.findOne({
     email: newuser.email
@@ -67,7 +49,15 @@ export const showUsers = (req, res) => {
 
 export const authenticateUser = (req, res) => {
   let email = req.body.email;
-  let password = req.body.password;
+  let passwordCheck = function(user,password){
+    let hash = crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64, 'sha512').toString('hex');
+    if(user.hash === hash){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   User.findOne({
     email: email
   },
@@ -79,7 +69,7 @@ export const authenticateUser = (req, res) => {
       res.json({success: false, message: 'authenticate failed user not found.'});
     } else if (user){
       //check password here
-      if(user.password != password){
+      if(!passwordCheck(user, req.body.password)){
         res.json({success: false, message: 'Authhenication failed invalid password'});
       } else {
         // if user is found and password is right

@@ -9,5 +9,6 @@ module.exports = mongoose.model('User', new Schema({
   lastName: String,
   groupId: String,
   admin: Boolean,
-  jwt: String
+  hash: String,
+  salt: String,
 }));
