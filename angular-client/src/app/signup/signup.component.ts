@@ -4,28 +4,26 @@ import { NgForm } from '@angular/forms';
 import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
-export class LoginComponent implements OnInit {
-  loading: boolean =false;
+export class SignupComponent implements OnInit {
+  loading: boolean = false;
   error: string = '';
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    //reset login status
-    this.authenticationService.logout();
   }
 
-  onLogin(form: NgForm){
+  onSignup(form:NgForm){
     const email = form.value.email;
     const password = form.value.password;
-    this.loading = true;
-    console.log(email);
-    this.authenticationService.login(email, password)
+    const firstName = form.value.firstName;
+    const lastName = form.value.lastName;
+    this.authenticationService.signup(email, password, firstName, lastName)
       .subscribe(result => {
         if(result === true){
           //login successful

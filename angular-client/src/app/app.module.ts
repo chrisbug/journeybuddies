@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import {NgForm, NgModel} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     HomeComponent,
     LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

@@ -35,7 +35,20 @@ export class AuthenticationService {
     });
   }
 
-  logout(): void {
+  signup(email: string, password:string, firstName: string, lastName: string): Observable<boolean>{
+    return this.http.post('http://127.0.0.1:8080/user/signup', {email: email, password: password, firstName: firstName, lastName: lastName})
+      .map((response: HttpResponse) => {
+        console.log(response)
+        if(response.success){
+          localStorage.setItem('currentUser', JSON.stringify({email: email, token: response.token}));
+          return true;
+        } else {
+          return false;
+        }
+      }
+  }
+
+  logout():void {
     //clear all user info from sesion
     this.token = null;
     localStorage.removeItem('currentUser');

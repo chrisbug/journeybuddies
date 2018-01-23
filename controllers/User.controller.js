@@ -3,7 +3,15 @@ import User from '../models/user.model';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 
-
+const genToken = function(user){
+  let payload ={
+    admin: user.admin
+  };
+    return jwt.sign(payload, user.salt,
+    {
+      expiresIn: 1440*1000 // one day.
+    })
+  }
 
 export const signupUser = (req, res) => {
   let newuser = new User({
@@ -12,7 +20,6 @@ export const signupUser = (req, res) => {
     lastName: req.body.lastName,
     groupId: '',
     admin: false,
-    jwt: '',
     salt : null,
     hash: null,
   });
@@ -31,8 +38,9 @@ export const signupUser = (req, res) => {
             console.log(err);
             return res.json({'success': false, 'message': 'error with test user that aint good'});
           } else {
+              let token = genToken(newuser)
               console.log(newuser.firstName + ' has been added');
-              return res.json({'success': true, 'message': newuser.email + ' has been added to db'});
+              return res.json({'success': true, 'message': newuser.email + ' has been added to db', 'token': token });
             }
         });
     } else {
@@ -72,21 +80,7 @@ export const authenticateUser = (req, res) => {
       if(!passwordCheck(user, req.body.password)){
         res.json({success: false, message: 'Authhenication failed invalid password'});
       } else {
-        // if user is found and password is right
-        // create a token with only our given payload
-        // don't pass in the entire user since that has the password
-        const payload ={
-          admin: user.admin
-        };
-        //supper secret will become a private key read in
-        let token = jwt.sign(payload, 'superSecret',
-        {
-          expiresIn: 1440 // one day.
-        });
-
-        //store token in user in DB
-        //User.update( {_id:user._id}, {jwt: token});
-        user.jwt = token;
+        let token = genToken(user);
         user.save()
         console.log(user);
 
