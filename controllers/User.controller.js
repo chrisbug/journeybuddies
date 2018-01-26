@@ -55,7 +55,7 @@ export const showUsers = (req, res) => {
   });
 };
 
-export const authenticateUser = (req, res) => {
+export const authenticateUser = (req, res, err) => {
   let email = req.body.email;
   let passwordCheck = function(user,password){
     let hash = crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64, 'sha512').toString('hex');
@@ -65,33 +65,38 @@ export const authenticateUser = (req, res) => {
       return false;
     }
   }
+  if(err){
+    console.log('error');
+    console.log(err);
+    res.json({success: false, message:'internal error'});
+  } else {
+      User.findOne({
+      email: email
+    },
+    function(err, user){
+      if(err){
+        console.log('error');
+        res.json('error on searching');
+      } if(!user){
+        res.json({success: false, message: 'authenticate failed user not found.'});
+      } else if (user){
+        //check password here
+        if(!passwordCheck(user, req.body.password)){
+          res.json({success: false, message: 'Authhenication failed invalid password'});
+        } else {
+          let token = genToken(user);
+          user.save()
+          console.log(user);
 
-  User.findOne({
-    email: email
-  },
-  function(err, user){
-    if(err){
-      console.log('error');
-      res.json('error on searching');
-    } if(!user){
-      res.json({success: false, message: 'authenticate failed user not found.'});
-    } else if (user){
-      //check password here
-      if(!passwordCheck(user, req.body.password)){
-        res.json({success: false, message: 'Authhenication failed invalid password'});
-      } else {
-        let token = genToken(user);
-        user.save()
-        console.log(user);
+          //return the infomation including token as jsonwebtoken
+          res.json({
+            success: true,
+            message: 'Enjoy your token',
+            token: token
+          });
 
-        //return the infomation including token as jsonwebtoken
-        res.json({
-          success: true,
-          message: 'Enjoy your token',
-          token: token
-        });
-
+        }
       }
-    }
-  });
+    });
+  }
 }

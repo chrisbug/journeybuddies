@@ -45,7 +45,7 @@ export class AuthenticationService {
         } else {
           return false;
         }
-      }
+      });
   }
 
   logout():void {
