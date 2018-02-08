@@ -4,13 +4,15 @@ import { AuthenticationService } from './_services/authentication.service'
 import { HttpModule } from '@angular/http';
 import { UserService } from './_services/user.service';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import {NgForm, NgModel} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { SignupComponent } from './signup/signup.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { NavComponent } from './components/nav/nav.component';
 
 
 @NgModule({
@@ -19,6 +21,8 @@ import { SignupComponent } from './signup/signup.component';
     HomeComponent,
     LoginComponent,
     SignupComponent,
+    ProfileComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,

@@ -14,16 +14,16 @@ export class UserService {
     private authentication: AuthenticationService
   ){}
 
-  getUsers(): Observable<User[]> {
+  getUser(): Observable<User> {
     // add authroization header with jwt token
     let headers = new Headers({ 'authroization':'Bearer' + this.authentication.token});
     let options = new RequestOptions({headers: headers});
 
     //get users from Api
-    return this.http.get('http://localhost:8080/user/showusers')
+    return this.http.get('http://localhost:8080/api/user/showusers')
       .map((response: Response) => {
         console.log(response)
-        return response
+        return response[0]
       });
   }
 }

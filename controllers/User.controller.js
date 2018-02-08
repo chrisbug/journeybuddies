@@ -18,7 +18,7 @@ export const signupUser = (req, res) => {
     email: req.body.email,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    groupId: '',
+    groups: [],
     admin: false,
     salt : null,
     hash: null,
@@ -55,48 +55,38 @@ export const showUsers = (req, res) => {
   });
 };
 
-export const authenticateUser = (req, res, err) => {
-  let email = req.body.email;
-  let passwordCheck = function(user,password){
-    let hash = crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64, 'sha512').toString('hex');
-    if(user.hash === hash){
-      return true;
-    } else {
-      return false;
+export const getUser = (req, res) => {
+  User.find({_id:req.body._id}, function(err, user){
+    res.status(200).json(user);
+  })
+}
+
+export const authenticateUser = (req, res) => {
+  console.log(req.body.email);
+    if(!req.body.email || !req.body.password){
+      res.json({success: false, message: 'Missing required Items'})
     }
-  }
-  if(err){
-    console.log('error');
-    console.log(err);
-    res.json({success: false, message:'internal error'});
-  } else {
-      User.findOne({
-      email: email
-    },
-    function(err, user){
+    let token;
+    User.findOne({email: req.body.email}, function(err, user){
       if(err){
         console.log('error');
-        res.json('error on searching');
       } if(!user){
-        res.json({success: false, message: 'authenticate failed user not found.'});
+        console.log('no user');
+        res.status(404).json({success: false, message: 'authenticate failed user not found.'});
       } else if (user){
-        //check password here
-        if(!passwordCheck(user, req.body.password)){
-          res.json({success: false, message: 'Authhenication failed invalid password'});
-        } else {
-          let token = genToken(user);
-          user.save()
-          console.log(user);
-
-          //return the infomation including token as jsonwebtoken
+        console.log(user)
+        var hash = crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64, 'sha512').toString('hex');
+        if(hash === user.hash){
+          token = genToken(user);
           res.json({
             success: true,
-            message: 'Enjoy your token',
+            message: "Yep",
             token: token
           });
-
+        } else {
+          res.status(401).json({success: false, message: 'Authhenication failed invalid password'});
         }
+
       }
-    });
-  }
+    })
 }

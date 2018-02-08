@@ -44,7 +44,7 @@ app.get('/', function(req, res){
 });
 
 //app.use('/api/auth', authRoutes);
-app.use('/user', userRoutes);
+app.use('/api/user/', userRoutes);
 
 app.use('/api', authRoutes);
 

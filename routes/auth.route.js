@@ -3,6 +3,7 @@
 import express from 'express';
 import * as authController from '../controllers/auth.controller';
 import * as userController from '../controllers/user.controller';
+import * as groupController from '../controllers/group.controller';
 
 const router = express.Router()
 
@@ -13,5 +14,8 @@ router.route('/testy')
 
 router.route('/showusers')
   .get(userController.showUsers);
+
+router.route('/creategroup')
+  .post(groupController.createGroup);
 
 export default router;

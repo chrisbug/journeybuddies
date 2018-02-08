@@ -1,3 +1,21 @@
-<div class="col-lg-12 col-md-12 col-xs-12">
-  <router-outlet></router-outlet>
+<div class="col-xs-12 col-sm-12 col-md-12" style="border: solid 2px;">
+  <div class="col-xs-1 col-sm-1 col-md-1" style="border: solid 2px;">
+
+  </div>
+  <div class="col-xs-11 col-sm-11 col-md-11" style="border: solid 2px;">
+      <div class="row" style="border: solid 2px;">
+          <div class="col-xs-2 col-sm-2 col-md-2">
+            <app-nav></app-nav>
+          </div>
+          <div class="col-xs-8 col-sm-6 col-md-10" style="border: 2px solid;">
+            <p>Component menu loads here</p>
+          </div>
+      </div>
+        <div class="row" style="border: solid 2px;">
+          <router-outlet></router-outlet>
+        </div>
+        <div class="row" style="border: solid 2px;">
+          <p>put search button in here </p>
+        </div>
+    </div>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../_models/user';
-import { UserService } from '../_services/user.service';
+import { User } from '../../_models/user';
+import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -13,12 +13,6 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    //get users from secrue api endpoint
-    this.userService.getUsers()
-      .subscribe(users =>{
-        this.users = users;
-        console.log(users)
-      })
   }
 
 }

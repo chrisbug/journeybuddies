@@ -16,7 +16,7 @@ export class AuthenticationService {
 
   login(email: string, password:string): Observable<boolean> {
     console.log(email + ' ' + password)
-    return this.http.post('http://127.0.0.1:8080/user/authenticate', {email: email, password: password})
+    return this.http.post('http://127.0.0.1:8080/api/user/authenticate', {email: email, password: password})
     .map((response: HttpResponse) => {
       console.log(response)
       let token = response && response.token;
@@ -36,7 +36,7 @@ export class AuthenticationService {
   }
 
   signup(email: string, password:string, firstName: string, lastName: string): Observable<boolean>{
-    return this.http.post('http://127.0.0.1:8080/user/signup', {email: email, password: password, firstName: firstName, lastName: lastName})
+    return this.http.post('http://127.0.0.1:8080/api/user/signup', {email: email, password: password, firstName: firstName, lastName: lastName})
       .map((response: HttpResponse) => {
         console.log(response)
         if(response.success){

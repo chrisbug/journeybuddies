@@ -1,0 +1,37 @@
+var expect = require('chai').expect
+  mongoose = require('mongoose');
+
+describe('Models', function(){
+  var User;
+
+  beforeEach(function(done){
+    mongoose.connect('mongodb://localhost/test_mocha_example');
+    mongoose.connection.once('connected', () => {
+      mongoose.connection.db.dropDatabase();
+
+      require('./models').registerModels();
+      //This is the true right model because reighster is at the test_mocha_example
+      User = mongoose.model('user');
+      done();
+    });
+  });
+
+  afterEach(function(done){
+    mongoose.disconnect();
+    done();
+  });
+
+  describe('Lifecycle', function(){
+    it('should not save without password', function(done){
+      var user = new User({
+        email: 'chris@chris.com'
+      });
+      user.save(function(err){
+        expect(err).to.exist
+          .and.be.instanceof(Error);
+          //.and.have.property('message', 'user validation failed');
+        done();
+      })
+    })
+  })
+})

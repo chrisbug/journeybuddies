@@ -20,7 +20,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "jsonwebtoken": "^8.1.0",
-    "mongoose": "^4.13.9",
+    "mongoose": "^4.10.8",
     "morgan": "^1.9.0",
     "nodemon": "^1.14.11",
     "passport": "^0.4.0",
@@ -30,5 +30,9 @@
   "bugs": {
     "url": "https://github.com/chrisbug/journeybuddies/issues"
   },
-  "homepage": "https://github.com/chrisbug/journeybuddies#readme"
+  "homepage": "https://github.com/chrisbug/journeybuddies#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "supertest": "^3.0.0"
+  }
 }
