@@ -56,9 +56,28 @@ export const showUsers = (req, res) => {
 };
 
 export const getUser = (req, res) => {
-  User.find({_id:req.body._id}, function(err, user){
-    res.status(200).json(user);
-  })
+  if(req.body._id){
+    User.find({_id:req.body._id}, function(err, user){
+      res.status(200).json(user);
+    })
+  }
+  else if(req.email){
+    User.find({email:req.body.email}, function(err, user){
+      if(err){
+        res.status(404).json({success: false, message:'no user found'})
+      } else{
+        let founduser = {
+          _id: user._id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          admin: user.admin,
+          groups: user.groups
+        }
+        rest.status(200).json({success:true, user:founduser, message: user._id})
+      }
+    })
+  }
 }
 
 export const authenticateUser = (req, res) => {
@@ -81,7 +100,13 @@ export const authenticateUser = (req, res) => {
           res.json({
             success: true,
             message: "Yep",
-            token: token
+            token: token,
+            user: {
+              _id : user._id,
+              email: user.email,
+              firstName: user.firstName,
+              lastName: user.lastName
+            }
           });
         } else {
           res.status(401).json({success: false, message: 'Authhenication failed invalid password'});

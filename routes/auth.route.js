@@ -15,6 +15,9 @@ router.route('/testy')
 router.route('/showusers')
   .get(userController.showUsers);
 
+router.route('/getuser')
+  .get(userController.getUser);
+
 router.route('/creategroup')
   .post(groupController.createGroup);
 

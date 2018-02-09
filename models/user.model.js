@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Group = require('./groups.model');
 
 //Set up the user model it is basic for now
 module.exports = mongoose.model('User', new Schema({
@@ -7,7 +8,7 @@ module.exports = mongoose.model('User', new Schema({
   password: String,
   firstName: String,
   lastName: String,
-  groupId: String,
+  groups: [],
   admin: Boolean,
   salt: String,
   hash: String
