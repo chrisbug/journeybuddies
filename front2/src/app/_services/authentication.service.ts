@@ -48,6 +48,14 @@ export class AuthenticationService {
       });
   }
 
+  isAuthenticated(){
+    if(this.token != null){
+      return true;
+    } else{
+      return false;
+    }
+  }
+
   logout():void {
     //clear all user info from sesion
     this.token = null;
