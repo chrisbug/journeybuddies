@@ -6,8 +6,11 @@
       </div>
     </div>
     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <p>Heading Content here</p>
+      <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+        <p>Welcome to your profile {{user.firstName}} {{user.lastName}}</p>
+      </div>
+      <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+        <button type="button" name="button">Select Group</button>
       </div>
     </div>
   </div>
@@ -17,6 +20,9 @@
     </div>
     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
       <p>Content</p>
+      <p *ngFor="let group of user.groups">
+        {{group}}
+      </p>
     </div>
   </div>
 </div>

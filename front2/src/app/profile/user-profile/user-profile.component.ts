@@ -11,7 +11,14 @@ import {UserService} from '../../_services/user.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  user: User
+  user: User = {
+    _id: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    groups: [],
+    admin: false
+  }
   id: string
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -20,8 +27,12 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
-        this.id = +params['id'];
-        this.user = this.userService.getUser(this.id);
+        this.id = params['id'];
+        this.userService.getUser(this.id).subscribe(
+            (user:User) => {
+              this.user = user;
+            }
+        )
       }
     );
   }
