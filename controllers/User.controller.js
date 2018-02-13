@@ -56,9 +56,18 @@ export const showUsers = (req, res) => {
 };
 
 export const getUser = (req, res) => {
-  if(req.body._id){
+  if(req.body._id || req.headers['_id']){
+    let id = req.body._id || req.headers['_id'];
     User.find({_id:req.body._id}, function(err, user){
-      res.status(200).json(user);
+      let founduser = {
+        _id: user._id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        admin: user.admin,
+        groups: user.groups
+      }
+      res.status(200).json(founduser);
     })
   }
   else if(req.email){

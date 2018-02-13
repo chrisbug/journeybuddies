@@ -20,11 +20,12 @@ export class AuthenticationService {
     .map((response: HttpResponse<any>) => {
       console.log(response)
       let token = response.token;
+      let id = response.user._id;
       if(token){
         this.token = token;
-
         //store email and jwt token in local storage to keep
         localStorage.setItem('currentUser', JSON.stringify({email: email, token: token}));
+        localStorage.setItem('userId', id);
 
         //return true to indicate succeslful login
         return true;
@@ -59,7 +60,7 @@ export class AuthenticationService {
   logout():void {
     //clear all user info from sesion
     this.token = null;
-    localStorage.removeItem('currentUser');
+    localStorage.clear();
   }
 
 }

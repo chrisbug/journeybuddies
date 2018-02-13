@@ -7,10 +7,17 @@ import { AuthenticationService } from '../../_services/authentication.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-
+  toggleMenu: boolean = false;
   constructor(private authservice: AuthenticationService) { }
 
   ngOnInit() {
+    this.toggleMenu = false;
+  }
+
+  onToggleMenu(){
+    if(this.toggleMenu){
+      this.toggleMenu = false;
+    } else { this.toggleMenu = true}
   }
 
 }

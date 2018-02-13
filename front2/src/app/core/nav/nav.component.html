@@ -1,10 +1,10 @@
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" appDropdown>
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
+      <button type="button" (click)="onToggleMenu()" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only" appDropdown>Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -13,23 +13,23 @@
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse" [ngClass]="{'navbar-collapse collapse in' : toggleMenu === true, 'navbar-collapse collapse' : toggleMenu === false}">
       <ul class="nav navbar-nav">
         <li class="dropdown" appDropdown>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li routerLinkActive="active"><a routerLink="/profile">Profile</a></li>
-            <li routerLinkActive="active"><a routerLink="/images">Images</a></li>
-            <li routerLinkActive="active"><a routerLink="/tasks">Tasks</a></li>
-            <li routerLinkActive="active"><a routerLink="/maps">Maps</a></li>
-            <li routerLinkActive="active"><a routerLink="/chat">Chat</a></li>
+            <li routerLinkActive="active" (click)="onToggleMenu()"><a routerLink="/profile">Profile</a></li>
+            <li routerLinkActive="active" (click)="onToggleMenu()"><a routerLink="/images">Images</a></li>
+            <li routerLinkActive="active" (click)="onToggleMenu()"><a routerLink="/tasks">Tasks</a></li>
+            <li routerLinkActive="active" (click)="onToggleMenu()"><a routerLink="/maps">Maps</a></li>
+            <li routerLinkActive="active" (click)="onToggleMenu()"><a routerLink="/chat">Chat</a></li>
           </ul>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!authservice.isAuthenticated()"><a routerLink="/login">Login</a></li>
-        <li *ngIf="!authservice.isAuthenticated()"><a routerLink="/signup">Signup</a></li>
-        <li *ngIf="authservice.isAuthenticated()" (click)="authservice.logout()">
+        <li *ngIf="!authservice.isAuthenticated()" (click)="onToggleMenu()"><a routerLink="/login">Login</a></li>
+        <li *ngIf="!authservice.isAuthenticated()" (click)="onToggleMenu()"><a routerLink="/signup">Signup</a></li>
+        <li *ngIf="authservice.isAuthenticated()" (click)="authservice.logout()" (click)="onToggleMenu()">
           <a routerLink="/">logout</a>
         </li>
       </ul>

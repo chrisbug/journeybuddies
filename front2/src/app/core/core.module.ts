@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { DropdownDirective } from './dropdown.directive';
+import { ColapseDirective } from './colapse.directive'
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { DropdownDirective } from './dropdown.directive';
   declarations: [
     NavComponent,
     HomeComponent,
-    DropdownDirective
+    DropdownDirective,
+    ColapseDirective
   ],
   exports: [
     CoreRoutingModule,
