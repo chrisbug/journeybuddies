@@ -58,34 +58,38 @@ export const showUsers = (req, res) => {
 export const getUser = (req, res) => {
   if(req.body._id || req.headers['_id']){
     let id = req.body._id || req.headers['_id'];
-    User.find({_id:req.body._id}, function(err, user){
-      let founduser = {
+    console.log('In the if')
+    User.findOne({_id: id}, function(err, user){
+      if(err){
+        res.status(404).json({success: false, message:'no user found with ID' + this.id})
+      }
+      res.status(200).json({success:true, user:{
         _id: user._id,
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
         admin: user.admin,
         groups: user.groups
-      }
-      res.status(200).json(founduser);
+      }})
     })
   }
   else if(req.email){
-    User.find({email:req.body.email}, function(err, user){
+    User.findOne({email:req.body.email}, function(err, user){
       if(err){
-        res.status(404).json({success: false, message:'no user found'})
+        res.status(404).json({success: false, message:'no user found with email'})
       } else{
-        let founduser = {
+        res.status(200).json({success:true, user:{
           _id: user._id,
           email: user.email,
           firstName: user.firstName,
           lastName: user.lastName,
           admin: user.admin,
           groups: user.groups
-        }
-        rest.status(200).json({success:true, user:founduser, message: user._id})
+        }})
       }
     })
+  } else{
+    res.status(403).json({success: false, message:'no user with'})
   }
 }
 
@@ -106,6 +110,8 @@ export const authenticateUser = (req, res) => {
         var hash = crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64, 'sha512').toString('hex');
         if(hash === user.hash){
           token = genToken(user);
+          console.log('Sending token to user')
+          console.log(token)
           res.json({
             success: true,
             message: "Yep",

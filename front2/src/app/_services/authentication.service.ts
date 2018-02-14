@@ -7,11 +7,16 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthenticationService {
   public token: string;
+  public url: string = 'http://localhost:8080/api/';
 
   constructor(private http:HttpClient) {
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser && currentUser.token;
     console.log(currentUser);
+  }
+
+  getUrl(){
+    return this.url;
   }
 
   login(email: string, password:string): Observable<boolean> {

@@ -3,10 +3,9 @@ import User from '../models/user.model';
 //import userRoutes from './routes/user.route';
 import jwt from 'jsonwebtoken';
 
-
-
 export const apiRoute = function(req, res, next){
     let id = req.body._id || req.headers['_id'];
+    console.log(req.headers['x-access-token'])
     let token = req.body.token || req.query.token || req.headers['x-access-token'];
     User.findById(id,
       function(err, user){
@@ -15,7 +14,7 @@ export const apiRoute = function(req, res, next){
           res.json('error on searching db')
         }
         if(!user){
-          res.json({success: false, message: 'No user found'});
+          res.json({success: false, message: 'No user found for auth'});
         }
         else if(user){
           //decode the token

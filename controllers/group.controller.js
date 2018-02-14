@@ -4,11 +4,12 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 
 export const createGroup = (req, res) =>{
-  if(!req.body.username){
+  if(!req.body.email || req.body._id){
     return res.json({success: false, message:'Error with object'})
   } else {
     let newgroup = new group ({
-      users: [req.body.username]
+      admin: req.body._id,
+      users: [req.body.email]
     })
     newgroup.save(function(err){
       if(err){
