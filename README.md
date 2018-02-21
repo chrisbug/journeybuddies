@@ -10,7 +10,7 @@ help clients enjoy a more stress free holiday.
 * Task organizer for whole group.
 * Photo sharing.
 ---
-## Built on MEAN Stack
+## Built with MEAN Stack
 ---
 Mongo
 ---
