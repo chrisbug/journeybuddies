@@ -1,5 +1,5 @@
 import User from '../models/user.model';
-import Group from
+import Group from '../models/group.model';
 
 var expect = require('chai').expect
   mongoose = require('mongoose');
@@ -40,4 +40,10 @@ describe('Models', function(){
       })
     })
   })
+
+  describe('adding user to group', function){
+    it('should recive a 200 message', function(done){
+
+    });
+  }
 })

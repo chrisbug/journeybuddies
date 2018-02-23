@@ -61,8 +61,10 @@ export const getUser = (req, res) => {
     console.log('In the if')
     User.findOne({_id: id}, function(err, user){
       if(err){
+        console.log("error with findONE")
         res.status(404).json({success: false, message:'no user found with ID' + this.id})
       }
+      console.log(" no error with find")
       res.status(200).json({success:true, user:{
         _id: user._id,
         email: user.email,
@@ -112,7 +114,7 @@ export const authenticateUser = (req, res) => {
           token = genToken(user);
           console.log('Sending token to user')
           console.log(token)
-          res.json({
+          res.status(201).json({
             success: true,
             message: "Yep",
             token: token,
@@ -128,5 +130,5 @@ export const authenticateUser = (req, res) => {
         }
 
       }
-    })
+    });
 }

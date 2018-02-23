@@ -30,10 +30,13 @@ export class UserService {
       });
   }
 
-  createGroup(id:string, email: string): Observable<Group>{
-    return this.http.post(this.url+'creategroup', {_id: id, email: email})
+  createGroup(id:string, email: string): Observable<boolean>{
+    console.log(this.authentication.token)
+    console.log("running service");
+    return this.http.post(this.url+'creategroup', {_id: id, email: email, token: this.authentication.token})
     .map((response: HttpResponse<any>) => {
-      return response.group;
+      console.log('IT REUTNED')
+      return true;
     })
   }
 }

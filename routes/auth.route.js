@@ -21,4 +21,7 @@ router.route('/getuser')
 router.route('/creategroup')
   .post(groupController.createGroup);
 
+router.route('/addusertogroup')
+  .put(groupController.addUserToGroup);
+
 export default router;

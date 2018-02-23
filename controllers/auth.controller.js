@@ -30,6 +30,7 @@ export const apiRoute = function(req, res, next){
               else {
                 //if the token is verfied save the request for use in other authRoutes
                 req.decoded = decoded;
+                console.log("decoded")
                 next();
               }
               });

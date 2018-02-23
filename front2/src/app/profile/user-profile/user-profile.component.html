@@ -19,10 +19,15 @@
       <p>White space</p>
     </div>
     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+      <div class="row">
       <p>Content</p>
       <p *ngFor="let group of user.groups">
         {{group}}
       </p>
+      </div>
+      <div class="row">
+        <button type="button" name="button" (click)="onAddGroup()"> add Group</button>
+      </div>
     </div>
   </div>
 </div>

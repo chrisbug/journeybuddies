@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import {User} from '../../_models/user';
 import {UserService} from '../../_services/user.service';
+import {Group} from '../../_models/group.model';
 
 
 @Component({
@@ -35,6 +36,16 @@ export class UserProfileComponent implements OnInit {
         )
       }
     );
+  }
+
+  onAddGroup(){
+    console.log("calling group")
+    this.userService.createGroup(this.user._id, this.user.email).subscribe(
+     (stored: boolean) => {
+       if(stored) console.log("worked")
+       else{ console.log("didn't work")}
+     }
+    )
   }
 
 }
