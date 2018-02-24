@@ -25,6 +25,26 @@ export const createGroup = (req, res) =>{
   }
 }
 
+export const getGroup = (req, res) => {
+  if(req.body._id || req.headers['_id']){
+    let id  = req.body._id || req.headers['_id'];
+    Group.findById(id, function(err, group){
+      if(err){
+        res.status(404).json({success: false, message:'no user found with id'})
+      } else{
+        res.status(200).json({success: true, group:{
+          id: group._id,
+          admin: group.admin,
+          users: group.users
+        }});
+      }
+    })
+  }
+  else{
+    res.status(403).json({success: false, message:'No ids'})
+  }
+}
+
 export const addUserToGroup = (req, res) => {
   console.log("adding a user to group")
   if(!req.body.email || !req.body.groupid){

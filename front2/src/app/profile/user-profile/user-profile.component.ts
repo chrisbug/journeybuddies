@@ -42,8 +42,11 @@ export class UserProfileComponent implements OnInit {
     console.log("calling group")
     this.userService.createGroup(this.user._id, this.user.email).subscribe(
      (stored: boolean) => {
-       if(stored) console.log("worked")
-       else{ console.log("didn't work")}
+       this.userService.getGroups(this.user._id).subscribe(
+        (group: string[]) => {
+          this.user.groups = group;
+        }
+       )
      }
     )
   }

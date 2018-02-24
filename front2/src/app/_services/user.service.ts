@@ -9,7 +9,8 @@ import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 
 @Injectable()
 export class UserService {
-  public url: string
+  public url: string;
+  public group: string;
   constructor(
     private http: HttpClient,
     private authentication: AuthenticationService
@@ -28,6 +29,20 @@ export class UserService {
         let LoggedInUser:User = response.user;
         return LoggedInUser;
       });
+  }
+
+  getGroups(id:string): Observable<Group>{
+    let headers = new HttpHeaders({ 'x-access-token': this.authentication.token, '_id': id});
+    return this.http.get(this.url+'getusergroups', {headers})
+      .map((response: Response) => {
+        console.log(response)
+        let userGroups:Group = response.group;
+        return userGroups;
+      });
+  }
+
+  setGroup(group: string){
+    this.group = group;
   }
 
   createGroup(id:string, email: string): Observable<boolean>{

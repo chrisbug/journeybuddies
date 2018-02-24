@@ -61,7 +61,7 @@ export const getUser = (req, res) => {
     console.log('In the if')
     User.findOne({_id: id}, function(err, user){
       if(err){
-        console.log("error with findONE")
+        console.log("error with findOne")
         res.status(404).json({success: false, message:'no user found with ID' + this.id})
       }
       console.log(" no error with find")
@@ -99,36 +99,51 @@ export const authenticateUser = (req, res) => {
   console.log(req.body.email);
     if(!req.body.email || !req.body.password){
       res.json({success: false, message: 'Missing required Items'})
-    }
-    let token;
-    User.findOne({email: req.body.email}, function(err, user){
-      if(err){
-        console.log('error');
-      } if(!user){
-        console.log('no user');
-        res.status(404).json({success: false, message: 'authenticate failed user not found.'});
-      } else if (user){
-        console.log(user)
-        var hash = crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64, 'sha512').toString('hex');
-        if(hash === user.hash){
-          token = genToken(user);
-          console.log('Sending token to user')
-          console.log(token)
-          res.status(201).json({
-            success: true,
-            message: "Yep",
-            token: token,
-            user: {
-              _id : user._id,
-              email: user.email,
-              firstName: user.firstName,
-              lastName: user.lastName
+    } else {
+      let token;
+      User.findOne({email: req.body.email}, function(err, user){
+        if(err){
+          console.log('error');
+        }if(!user){
+            console.log('no user');
+            res.status(404).json({success: false, message: 'authenticate failed user not found.'});
+          } else if (user){
+            console.log(user)
+            var hash = crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64, 'sha512').toString('hex');
+            if(hash === user.hash){
+              token = genToken(user);
+              console.log('Sending token to user')
+              console.log(token)
+              res.status(201).json({
+                success: true,
+                message: "Yep",
+                token: token,
+                user: {
+                  _id : user._id,
+                  email: user.email,
+                  firstName: user.firstName,
+                  lastName: user.lastName
+                }
+              });
             }
-          });
-        } else {
-          res.status(401).json({success: false, message: 'Authhenication failed invalid password'});
-        }
+          } else {
+            res.status(401).json({success: false, message: 'Authhenication failed invalid password'});
+            }
+      });
+    }
+}
 
+export const getUserGroups = (req, res) => {
+  if(req.body._id || req.headers['_id']){
+    let id = req.body._id || req.headers['_id'];
+    User.findById(id, function(err, user){
+      if(err){
+        res.status(404).json({success: false, message:'no user found with id'})
+      } else {
+        res.status(201).json({success: true, message:"user found", group: user.groups})
       }
     });
+  } else{
+    res.status(404).json({success: false, message:'no user found with id'})
+  }
 }

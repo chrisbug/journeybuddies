@@ -18,10 +18,14 @@ router.route('/showusers')
 router.route('/getuser')
   .get(userController.getUser);
 
+router.route('/getusergroups')
+  .get(userController.getUserGroups);
+
 router.route('/creategroup')
   .post(groupController.createGroup);
 
 router.route('/addusertogroup')
   .put(groupController.addUserToGroup);
+
 
 export default router;
