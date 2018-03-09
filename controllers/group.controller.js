@@ -7,19 +7,30 @@ import crypto from 'crypto';
 export const createGroup = (req, res) =>{
   console.log("making new group started")
   if(!req.body.email || !req.body._id){
-    return res.status(400).json({success: false, message:'Error with object'})
+    return res.status(404).json({success: false, message:'Error with object'})
   } else {
     console.log("making new group")
     let newgroup = new Group ({
       admin: req.body._id,
       users: [req.body.email]
-    })
-    newgroup.save(function(err){
+    });
+    newgroup.save(function(err, group){
       if(err){
         console.log(err);
         return res.status(500).json({success: false, message:'Error saving group to db'})
       } else{
-        return res.status(201).json({success: true, message: 'Group Created'})
+        let newId = group._id;
+        User.findById(group.admin, function(err, user){
+          user.groups.push(newId);
+          user.save(function(err, updateduser){
+            if (err){
+              res.status(404).json();
+            } else{
+              console.log(user.groups);
+            }
+          });
+        });
+        return res.status(200).json(group._id);
       }
     });
   }
@@ -32,11 +43,11 @@ export const getGroup = (req, res) => {
       if(err){
         res.status(404).json({success: false, message:'no user found with id'})
       } else{
-        res.status(200).json({success: true, group:{
+        res.status(200).json({
           id: group._id,
           admin: group.admin,
           users: group.users
-        }});
+        });
       }
     })
   }
@@ -48,9 +59,9 @@ export const getGroup = (req, res) => {
 export const addUserToGroup = (req, res) => {
   console.log("adding a user to group")
   if(!req.body.email || !req.body.groupid){
-    let userEmail = req.body.email;
     return res.status().json({success: false, message:'Error with request'})
   } else {
+    let userEmail = req.body.email;
     Group.findById(req.body.groupid , function(err, group){
       if(err){
         return res.status(404).json({'success': false, 'message': 'error try again'});
@@ -79,7 +90,7 @@ export const addUserToGroup = (req, res) => {
           }
         }
         group.save();
-        return res.status(201).json({'success': true, 'message':'user added to group', group})
+        return res.status(201).json(group);
       }
     })
 

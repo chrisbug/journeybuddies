@@ -16,10 +16,10 @@ router.route('/showusers')
   .get(userController.showUsers);
 
 router.route('/getuser')
-  .get(userController.getUser);
+  .post(userController.getUser);
 
 router.route('/getusergroups')
-  .get(userController.getUserGroups);
+  .post(userController.getUserGroups);
 
 router.route('/creategroup')
   .post(groupController.createGroup);

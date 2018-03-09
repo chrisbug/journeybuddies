@@ -25,7 +25,10 @@
     "nodemon": "^1.14.11",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "serve-favicon": "^2.4.5"
+    "serve-favicon": "^2.4.5",
+    "socket.io": "*",
+    "http": "*",
+    "source-map-support": "*"
   },
   "bugs": {
     "url": "https://github.com/chrisbug/journeybuddies/issues"

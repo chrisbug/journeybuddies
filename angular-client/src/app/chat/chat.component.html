@@ -1,0 +1,11 @@
+<div *ngIf="username">
+  <input type="text" placeholder="EnterMessage" [(ngModel)]="message" name="message" (keyup.enter)="sendMessage()">
+  <br>
+  <div *ngFor="let message of messages">
+    <strong>{{message.username}}: </strong>{{message.text}}
+  </div>
+</div>
+
+<div *ngIf="!username">
+  PLease log in to chat
+</div>
