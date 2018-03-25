@@ -102,8 +102,8 @@ export const setGroupMeetingPoint = (req, res) => {
   if (req.body.groupid || req.headers['groupid']) {
     let id = req.body.groupid || req.headers['groupid'];
     let meetingpoint;
-    if(req.body.meetingpoint){
-      meetingpoint = req.body.meetingpoint;
+    if (req.body.marker){
+      meetingpoint = req.body.marker;
     } else {
       meetingpoint = {
         name: 'error',
@@ -113,18 +113,20 @@ export const setGroupMeetingPoint = (req, res) => {
     }
     Group.findById(id, function(err, group){
       group.meetingpoint = meetingpoint;
+      console.log(group.meetingpoint);
       group.save();
       console.log('done setting group')
-      return res.status(201);
+      return res.status(201).json(true);
     })
-  } else { return res.status(404);}
+  } else { return res.status(404).json(false);}
 }
 
 export const getGroupMeetingPoint = (req, res) => {
+  console.log(req.body.groupid);
   if (req.body.groupid || req.headers['groupid']) {
     let id = req.body.groupid || req.headers['groupid'];
-    group.findById(id, function (err, group) {
-      console.log('done getting group')
+    Group.findById(id, function (err, group) {
+      console.log('done getting group: ' + group.meetingpoint);
       return res.status(201).json(group.meetingpoint);
     })
   } else { return res.status(404).json({
