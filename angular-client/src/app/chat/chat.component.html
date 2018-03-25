@@ -1,8 +1,9 @@
 <div *ngIf="username">
-  <input type="text" placeholder="EnterMessage" [(ngModel)]="message" name="message" (keyup.enter)="sendMessage()">
+  <input type="text" placeholder="EnterMessage" [(ngModel)]="message" name="message" (keyup.enter)="onSendMessage()" />
+  <button (click)="onSendMessage()">Send</button>
   <br>
   <div *ngFor="let message of messages">
-    <strong>{{message.username}}: </strong>{{message.text}}
+    <strong>{{message.username}} : </strong>{{message.text}}
   </div>
 </div>
 

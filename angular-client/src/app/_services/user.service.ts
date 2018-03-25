@@ -29,7 +29,7 @@ export class UserService {
     localStorage.setItem('_id', user._id);
   }
 
-  getCurrentUser(){
+  getCurrentUser() {
     return this.currentUser;
   }
 

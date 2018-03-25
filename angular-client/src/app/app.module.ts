@@ -1,3 +1,6 @@
+import { AgmCoreModule, AgmMap } from '@agm/core';
+import { MapModule } from './map/map.module';
+import { MapService } from './_services/map.service';
 import { ChatModule } from './chat/chat.module';
 import { ChatService } from './_services/chat.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
 import { ProfileModule } from './profile/profile.module';
 
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -25,9 +29,13 @@ import { ProfileModule } from './profile/profile.module';
     CoreModule,
     AuthModule,
     ProfileModule,
-    ChatModule
+    ChatModule,
+    MapModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyC5eQniYJCql71bD7mffKxVBCNr1hIV7JU'
+    })
   ],
-  providers: [AuthenticationService, UserService, ChatService],
+  providers: [AuthenticationService, UserService, ChatService, MapService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

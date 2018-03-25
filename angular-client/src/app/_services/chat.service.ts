@@ -7,16 +7,21 @@ import * as io from 'socket.io-client';
 export class ChatService {
   private url = 'http://localhost:8080';
   private socket: any;
+  private room: string;
 
-  sendMessage(message: string, username: string, room:string){
+  sendMessage(message: string, username: string, room: string) {
     this.socket.emit('add-message', message, username, room);
   }
   constructor() { }
 
   getMessages(room: string) {
-    const observable = new Observable((observer: any) => {
-      this.socket = io(this.url);
+    console.log('Messages running');
+    let observable = new Observable((observer: any) => {
+      this.socket = io(this.url + '/rooms' );
+      console.log('message' + room);
+      this.socket.emit('room', room);
       this.socket.on('message' + room, (data: any) => {
+        console.log('new message');
         observer.next(data);
       });
       return() => {
@@ -25,5 +30,11 @@ export class ChatService {
     });
     return observable;
   }
+
+  setRoom(room: string) {
+    this.room = room;
+  }
+
+
 
 }

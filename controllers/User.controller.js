@@ -107,7 +107,7 @@ export const getUser = (req, res) => {
           firstName: user.firstName,
           lastName: user.lastName,
           admin: user.admin,
-          groups: user.groups
+          groups: user.groups,
         })
       }
     })

@@ -4,5 +4,10 @@ var Schema = mongoose.Schema;
 //Set up the user model it is basic for now
 module.exports = mongoose.model('Group', new Schema({
   admin: String,
-  users: [String]
+  users: [String],
+  meetingpoint : {
+    name: String,
+    lat: Number,
+    lng: Number
+  }
 }));

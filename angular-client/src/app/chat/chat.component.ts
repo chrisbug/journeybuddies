@@ -22,6 +22,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   // they will then be pushed into message array to be displayed to user.
   ngOnInit() {
     this.room = this.userService.getGroup();
+    console.log(this.room);
+    this.chatService.setRoom(this.room);
     this.username = this.userService.getCurrentUser().firstName;
     this.connection = this.chatService.getMessages(this.room).subscribe(message => {
       console.log(message);
@@ -30,12 +32,16 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   // We want the user to dissconect from chat and unscribe to stop memory leaks
-  ngOnDestroy(  ) {
+  ngOnDestroy() {
     this.connection.unsubscribe();
   }
 
-  sendMessage() {
+  onSendMessage() {
+    console.log('Event works');
+    console.log(this.message);
     this.chatService.sendMessage(this.message, this.username, this.room);
+    // this.messages.push({text: this.message, username: this.username});
+    this.message = '';
   }
 
 }

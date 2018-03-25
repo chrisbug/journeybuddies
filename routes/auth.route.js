@@ -27,5 +27,11 @@ router.route('/creategroup')
 router.route('/addusertogroup')
   .put(groupController.addUserToGroup);
 
+router.route('/getmeetingpoint')
+  .post(groupController.getGroupMeetingPoint)
+
+router.route('/setmeetingpoint')
+  .post(groupController.setGroupMeetingPoint)
+
 
 export default router;

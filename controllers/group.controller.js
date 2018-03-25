@@ -46,7 +46,8 @@ export const getGroup = (req, res) => {
         res.status(200).json({
           id: group._id,
           admin: group.admin,
-          users: group.users
+          users: group.users,
+          meetingpoint: group.meetingpoint
         });
       }
     })
@@ -95,4 +96,41 @@ export const addUserToGroup = (req, res) => {
     })
 
   }
+}
+
+export const setGroupMeetingPoint = (req, res) => {
+  if (req.body.groupid || req.headers['groupid']) {
+    let id = req.body.groupid || req.headers['groupid'];
+    let meetingpoint;
+    if(req.body.meetingpoint){
+      meetingpoint = req.body.meetingpoint;
+    } else {
+      meetingpoint = {
+        name: 'error',
+        lat: 0,
+        lng: 0
+      }
+    }
+    Group.findById(id, function(err, group){
+      group.meetingpoint = meetingpoint;
+      group.save();
+      console.log('done setting group')
+      return res.status(201);
+    })
+  } else { return res.status(404);}
+}
+
+export const getGroupMeetingPoint = (req, res) => {
+  if (req.body.groupid || req.headers['groupid']) {
+    let id = req.body.groupid || req.headers['groupid'];
+    group.findById(id, function (err, group) {
+      console.log('done getting group')
+      return res.status(201).json(group.meetingpoint);
+    })
+  } else { return res.status(404).json({
+      name: "no meeting point",
+      lat: 0,
+      lng: 0
+      });
+    }
 }

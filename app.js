@@ -17,6 +17,7 @@ const app = express();
 var http = require('http').Server(app)
 var io = require('socket.io')(http);
 // set the port
+const rooms = [];
 const port = process.env.PORT || 8080;
 
 const apiRoutes = express.Router();
@@ -59,26 +60,38 @@ app.use((req, res, next) => {
 // });
 
 //Building Socket connections for with socket.io for group rooms
-let rooms = []
-Group.find({}, function(err, group){
-  rooms.push(group._id)
+console.log(rooms.length);
+Group.find({}, function(err, groups){
+  for (let group of groups){
+  //console.log("setting up room ");
+  //console.log(group._id);
+  rooms.push(group._id);
+  }
 });
 
-var nsp = io.of('/jpchats');
+const nsp = io.of('/rooms');
 nsp.on('connection', (socket) => {
   console.log('Chats are running');
-  for (let room of rooms){
-    socket.join(room);
-  }
 
   socket.on('add-message', (message, username, room) => {
     //nsp.emit('message', {type: 'new-message', text: message, username: username})
+    console.log(message);
     nsp.to(room).emit('message' + room, { type: 'new-message', text: message, username: username })
+    console.log('message'+room)
+  });
+
+  socket.on('room', function(room){
+    console.log('new room');
+    socket.join(room);
+  });
+
+  socket.on('disconnect', () =>{
+    console.log('User Disconnect');
   });
 })
 
 
 
 http.listen(port, () => {
-  console.log('Server runnong on port')
-})
+  console.log('Server runnong on port: ' + port)
+});
