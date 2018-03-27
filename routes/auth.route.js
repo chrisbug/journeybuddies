@@ -33,5 +33,16 @@ router.route('/getmeetingpoint')
 router.route('/setmeetingpoint')
   .post(groupController.setGroupMeetingPoint)
 
+router.route('/gettasks')
+  .post(groupController.getTasks)
+
+router.route('/addtask')
+  .post(groupController.addtask)
+
+router.route('/marktaskcomplete')
+  .post(groupController.markTaskComplete)
+
+router.route('/deletetask')
+  .post(groupController.deleteTask)
 
 export default router;

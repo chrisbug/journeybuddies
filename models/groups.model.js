@@ -9,5 +9,11 @@ module.exports = mongoose.model('Group', new Schema({
     name: String,
     lat: Number,
     lng: Number
-  }
+  },
+  tasks: [ {
+      taskTitle: String,
+      taskDesciption: String,
+      taskfor: String,
+      completed: Boolean
+    }]
 }));

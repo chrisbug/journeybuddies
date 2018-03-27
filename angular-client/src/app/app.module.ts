@@ -1,3 +1,5 @@
+import { TasksModule } from './tasks/tasks.module';
+import { TaskService } from './_services/task.service';
 import { AgmCoreModule, AgmMap } from '@agm/core';
 import { MapModule } from './map/map.module';
 import { MapService } from './_services/map.service';
@@ -31,11 +33,12 @@ import { ProfileModule } from './profile/profile.module';
     ProfileModule,
     ChatModule,
     MapModule,
+    TasksModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC5eQniYJCql71bD7mffKxVBCNr1hIV7JU'
     })
   ],
-  providers: [AuthenticationService, UserService, ChatService, MapService],
+  providers: [AuthenticationService, UserService, ChatService, MapService, TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

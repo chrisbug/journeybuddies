@@ -136,3 +136,81 @@ export const getGroupMeetingPoint = (req, res) => {
       });
     }
 }
+
+export const getTasks = (req, res) => {
+  if (req.body.groupid || req.headers['groupid']){
+    let id = req.body.groupid || req.headers['groupid']
+    Group.findById(id, function (err, group) {
+      if(err){
+        return res.status(404)
+          .json([{ taskTitle: 'error', taskDescription: 'try reloading tasks', taskfor: 'no one', completed: false}]);
+      }
+      console.log('sending group taks: ' + id);
+      console.log(group.tasks);
+      return res.status(201).json(group.tasks);
+    });
+  } else {
+    return res.status(404)
+      .json([{ taskTitle: 'error', taskDescription: 'try reloading tasks', taskfor: 'no one', completed: false }]);
+  }
+}
+
+export const addtask = (req, res) => {
+  if (req.body.groupid || req.headers['groupid']){
+    let id = req.body.groupid || req.headers['groupid']
+    Group.findById(id, function (err, group) {
+      if(err){
+        return res.status(201).json(false);
+      }
+      console.log('*******');
+      console.log('adding taks');
+      group.tasks.push(req.body.task)
+      console.log(JSON.stringify(req.body.tasktaskTitle));
+      console.log('*******');
+      console.log
+      group.save();
+      return res.status(201).json(true);
+    });
+  }else {
+    return res.status(404).json(false);
+  }
+}
+
+export const markTaskComplete = (req, res) => {
+  if (req.body.groupid || req.headers['groupid']) {
+    let id = req.body.groupid || req.headers['groupid']
+    Group.findById(id, function (err, group) {
+      if (err) {
+        return res.status(201).json(false);
+      }
+      console.log(group.tasks);
+      for(let task of group.tasks){
+        //using shallow copies to just resign boolean object within reference 
+        if(task.taskTitle == req.body.taskTitle){
+          task.completed = true;
+        }
+      }
+      console.log(group.tasks);
+      group.save();
+      return res.status(201).json(true);
+    });
+  } else {
+    return res.status(404).json(false);
+  }
+}
+
+export const deleteTask = (req, res) => {
+  if (req.body.groupid || req.headers['groupid']) {
+    let id = req.body.groupid || req.headers['groupid']
+    Group.findById(id, function (err, group) {
+      if (err) {
+        return res.status(201).json(false);
+      }
+      group.tasks.splice(req.body.taskid, 1);
+      group.save();
+      return res.status(201).json(true);
+    });
+  } else {
+    return res.status(404).json(false);
+  }
+}
