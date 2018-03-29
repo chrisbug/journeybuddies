@@ -60,7 +60,7 @@ export class TaskListComponent implements OnInit {
     for (const value of this.tasks) {
       if (value.taskTitle === task.taskTitle) {
         this.taskService.deleteTask(this.group, this.userId, index).subscribe();
-        this.tasks.splice()
+        this.tasks.splice(index, 1);
       }
       index++;
     }

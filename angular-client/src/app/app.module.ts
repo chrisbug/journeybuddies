@@ -1,3 +1,4 @@
+import { ImagesModule } from './images/images.module';
 import { TasksModule } from './tasks/tasks.module';
 import { TaskService } from './_services/task.service';
 import { AgmCoreModule, AgmMap } from '@agm/core';
@@ -34,6 +35,7 @@ import { ProfileModule } from './profile/profile.module';
     ChatModule,
     MapModule,
     TasksModule,
+    ImagesModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC5eQniYJCql71bD7mffKxVBCNr1hIV7JU'
     })
