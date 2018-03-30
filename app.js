@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import Group from './models/groups.model';
 
 import SourceMapSupport from 'source-map-support';
-import config from './config';
+import config from './config/config';
 import User from './models/user.model';
 import userRoutes from './routes/user.route';
 import authRoutes from './routes/auth.route';
