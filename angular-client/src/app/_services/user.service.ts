@@ -21,7 +21,11 @@ export class UserService {
   getUser(id: string) {
     // add authroization header with jwt token
     // get users from Api
-    return this.http.post<User>(this.url + 'getuser', { token: this.authentication.getToken(), _id: id});
+    const headers = new HttpHeaders({
+      'token': this.authentication.getToken(),
+      '_id': id
+    });
+    return this.http.get<User>(this.url + 'getuser', { headers: headers });
   }
 
   setCurrentUser(user: any) {
@@ -44,17 +48,20 @@ export class UserService {
   }
 
   getUserByEmail(email: string) {
-    return this.http.post(this.url + 'getuser', { token: this.authentication.getToken(), email: email });
+    const headers = new HttpHeaders({
+      'token': this.authentication.getToken(),
+      'email': email
+    });
+    return this.http.get(this.url + 'getuser', {headers: headers});
   }
 
   getGroups(id: string) {
     console.log(this.authentication.token);
-    return this.http.post(this.url + 'getusergroups', { token: this.authentication.getToken(), _id: id});
-      // .map((response: Response) => {
-      //   console.log(response);
-      //   const userGroups: Group = response.group;
-      //   return userGroups;
-      // });
+    const headers = new HttpHeaders({
+      'token': this.authentication.getToken(),
+      '_id': id
+    });
+    return this.http.get(this.url + 'getusergroups', {headers: headers});
   }
 
   setGroup(group: string) {

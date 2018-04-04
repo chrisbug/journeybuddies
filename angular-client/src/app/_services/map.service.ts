@@ -13,9 +13,14 @@ export class MapService {
     }
 
   getMarkers(groupId: string, userId: string) {
+    const headers = new HttpHeaders({
+      'token': this.authenticationService.getToken(),
+      'groupid': groupId,
+      '_id': userId
+    });
     // Hit endpoint to get the group marker
-    return this.httpService.post(this.url + 'getmeetingpoint',
-    { token: this.authenticationService.getToken(), _id: userId, groupid: groupId });
+    return this.httpService.get(this.url + 'getmeetingpoint',
+    { headers: headers });
   }
 
   setMarkers(marker: any, groupId: string, userId: string) {

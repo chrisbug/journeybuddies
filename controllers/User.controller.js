@@ -142,8 +142,8 @@ export const authenticateUser = (req, res) => {
 }
 
 export const getUserGroups = (req, res) => {
-  if(req.body._id || req.headers['_id']){
-    let id = req.body._id || req.headers['_id'];
+  if(req.body._id || req.headers['id']){
+    let id = req.body._id || req.headers['id'];
     User.findById(id, function(err, user){
       if(err){
         res.status(404).json({success: false, message:'no user found with id'})

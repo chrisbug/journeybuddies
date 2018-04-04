@@ -4,7 +4,7 @@ import User from '../models/user.model';
 import jwt from 'jsonwebtoken';
 
 export const apiRoute = function(req, res, next){
-    let token = req.body.token || req.query.token || req.headers['x-access-token'];
+    let token = req.body.token || req.query.token || req.headers['token'];
     if(req.body._id || req.headers["_id"]){
       console.log('auth with id');
       let id = req.body._id || req.headers['_id'];
@@ -44,8 +44,10 @@ export const apiRoute = function(req, res, next){
                 }
             }
           });
-    } else if (req.body.email || req.header['email']) {
-          let email = req.body.email || req.header['email'];
+    } else if (req.body.email || req.headers['email']) {
+      console.log("RUNGING")
+          let email = req.body.email || req.headers['email'];
+          console.log(email)
             User.findOne({email: email}, function (err, user) {
                 if (err) {
                   console.log('error on search');
@@ -82,6 +84,7 @@ export const apiRoute = function(req, res, next){
                 }
               });
           } else {
+            console.log('error with auth in email');
           return res.status(200).json();
         }
 };

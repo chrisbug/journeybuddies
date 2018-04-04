@@ -1,3 +1,4 @@
+import { ImageService } from './../../_services/image.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./imageupload.component.css']
 })
 export class ImageuploadComponent implements OnInit {
+  imageUrl: string[];
   selectedFile: File = null;
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private imageService: ImageService
+  ) { }
 
   ngOnInit() {
   }
@@ -18,12 +23,17 @@ export class ImageuploadComponent implements OnInit {
   }
 
   onUpload() {
-    const fd = new FormData();
-    fd.append('image', this.selectedFile, this.selectedFile.name);
-    console.log(this.selectedFile);
-    this.http.post('urlendpoint here', fd)
-      .subscribe(res => {
-        console.log(res);
+    if (this.selectedFile) {
+      this.imageService.uploadImage(this.selectedFile).subscribe(res => {
+        console.log('done');
       });
+    }
+  }
+
+  onGetImages() {
+    this.imageService.getGroupImages().subscribe(res => {
+      this.imageUrl = res;
+      console.log(this.imageUrl);
+    });
   }
 }

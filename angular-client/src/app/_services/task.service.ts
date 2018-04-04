@@ -1,7 +1,7 @@
 import { Task } from './../_models/task';
 import { catchError, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -14,11 +14,12 @@ export class TaskService {
    }
 
   getTasks(groupId: string, _id: string) {
-    return this.http.post<Task[]>(`${this.url}gettasks`,
-    {token: this.authencationService.getToken(), _id: _id, groupid: groupId})
-    .pipe(
-      tap((tasks: Task[]) => console.log(tasks))
-      );
+    const headers = new HttpHeaders({
+      'token': this.authencationService.getToken(),
+      'groupid': groupId,
+      '_id': _id
+    });
+    return this.http.get<Task[]>(`${this.url}gettasks`, {headers: headers});
   }
 
   addTask(groupId: string, _id: string, task: Task) {
@@ -31,8 +32,14 @@ export class TaskService {
       { token: this.authencationService.getToken(), _id: _id, groupid: groupId, taskTitle: taskTitle });
   }
 
-  deleteTask(groupId: string, _id: string, taskid: number) {
-    return this.http.post(`${this.url}deletetask`,
-      { token: this.authencationService.getToken(), _id: _id, groupid: groupId, taskid: taskid });
+  deleteTask(groupId: string, _id: string, taskTitle: string) {
+    console.log(taskTitle);
+    const headers = new HttpHeaders({
+      'token': this.authencationService.getToken(),
+      'groupid': groupId,
+      '_id': _id,
+      'tasktitle': taskTitle
+    });
+    return this.http.delete(`${this.url}deletetask`, { headers: headers });
   }
 }

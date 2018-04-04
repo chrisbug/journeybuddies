@@ -1,3 +1,4 @@
+import { ImageService } from './_services/image.service';
 import { ImagesModule } from './images/images.module';
 import { TasksModule } from './tasks/tasks.module';
 import { TaskService } from './_services/task.service';
@@ -40,7 +41,7 @@ import { ProfileModule } from './profile/profile.module';
       apiKey: 'AIzaSyC5eQniYJCql71bD7mffKxVBCNr1hIV7JU'
     })
   ],
-  providers: [AuthenticationService, UserService, ChatService, MapService, TaskService],
+  providers: [AuthenticationService, UserService, ChatService, MapService, TaskService, ImageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

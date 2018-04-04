@@ -37,8 +37,8 @@ export const createGroup = (req, res) =>{
 }
 
 export const getGroup = (req, res) => {
-  if(req.body._id || req.headers['_id']){
-    let id  = req.body._id || req.headers['_id'];
+  if(req.body._id || req.headers['id']){
+    let id  = req.body._id || req.headers['id'];
     Group.findById(id, function(err, group){
       if(err){
         res.status(404).json({success: false, message:'no user found with id'})
@@ -150,7 +150,7 @@ export const getTasks = (req, res) => {
       return res.status(201).json(group.tasks);
     });
   } else {
-    return res.status(404)
+    return res.status(201)
       .json([{ taskTitle: 'error', taskDescription: 'try reloading tasks', taskfor: 'no one', completed: false }]);
   }
 }
@@ -200,15 +200,22 @@ export const markTaskComplete = (req, res) => {
 }
 
 export const deleteTask = (req, res) => {
+  console.log(req.headers);
   if (req.body.groupid || req.headers['groupid']) {
     let id = req.body.groupid || req.headers['groupid']
+    const taskTitle = req.body.taskTitle || req.headers['tasktitle']
     Group.findById(id, function (err, group) {
       if (err) {
         return res.status(201).json(false);
       }
-      group.tasks.splice(req.body.taskid, 1);
-      group.save();
-      return res.status(201).json(true);
+      for (let i = 0; i < group.tasks.length; i++){
+        if (group.tasks[i].taskTitle === taskTitle){
+          group.tasks.splice(i, 1);
+          group.save();
+          return res.status(201).json(true);
+        }
+      }
+      res.status(404).json(false);
     });
   } else {
     return res.status(404).json(false);

@@ -16,7 +16,7 @@ export class ChatService {
 
   getMessages(room: string) {
     console.log('Messages running');
-    let observable = new Observable((observer: any) => {
+    const observable = new Observable((observer: any) => {
       this.socket = io(this.url + '/rooms' );
       console.log('message' + room);
       this.socket.emit('room', room);

@@ -56,13 +56,13 @@ export class TaskListComponent implements OnInit {
   }
 
   onDeleteTask(task: Task) {
-    let index = 0;
-    for (const value of this.tasks) {
-      if (value.taskTitle === task.taskTitle) {
-        this.taskService.deleteTask(this.group, this.userId, index).subscribe();
-        this.tasks.splice(index, 1);
+    console.log(this.tasks);
+    console.log(this.tasks.length);
+    for (let i = 0; i < this.tasks.length; i++) {
+      if (this.tasks[i].taskTitle === task.taskTitle) {
+        this.taskService.deleteTask(this.group, this.userId, task.taskTitle).subscribe();
+        this.tasks.splice(i, 1);
       }
-      index++;
     }
   }
 

@@ -1,12 +1,17 @@
 //All routes that need authentication needs to be placed in here.
 
 import express from 'express';
+import multer from 'multer';
 import * as authController from '../controllers/auth.controller';
 import * as userController from '../controllers/user.controller';
 import * as groupController from '../controllers/group.controller';
+import * as imageController from '../controllers/image.controller';
 
 const router = express.Router()
-
+const upload = multer({
+  dest: 'uploads/'
+});
+//router.use(multipartyMiddleware);
 router.use(authController.apiRoute);
 
 router.route('/testy')
@@ -16,7 +21,7 @@ router.route('/showusers')
   .get(userController.showUsers);
 
 router.route('/getuser')
-  .post(userController.getUser);
+  .get(userController.getUser);
 
 router.route('/getusergroups')
   .post(userController.getUserGroups);
@@ -28,13 +33,13 @@ router.route('/addusertogroup')
   .put(groupController.addUserToGroup);
 
 router.route('/getmeetingpoint')
-  .post(groupController.getGroupMeetingPoint)
+  .get(groupController.getGroupMeetingPoint)
 
 router.route('/setmeetingpoint')
   .post(groupController.setGroupMeetingPoint)
 
 router.route('/gettasks')
-  .post(groupController.getTasks)
+  .get(groupController.getTasks)
 
 router.route('/addtask')
   .post(groupController.addtask)
@@ -43,6 +48,12 @@ router.route('/marktaskcomplete')
   .post(groupController.markTaskComplete)
 
 router.route('/deletetask')
-  .post(groupController.deleteTask)
+  .delete(groupController.deleteTask)
+
+router.route('/uploadimage')
+  .post(upload.single('image'), imageController.uploadFile)
+
+router.route('/getimages')
+  .get(imageController.getGroupImages)
 
 export default router;
