@@ -12,7 +12,7 @@ module.exports = mongoose.model('Group', new Schema({
   },
   tasks: [ {
       taskTitle: String,
-      taskDesciption: String,
+      taskDescription: String,
       taskfor: String,
       completed: Boolean
     }]

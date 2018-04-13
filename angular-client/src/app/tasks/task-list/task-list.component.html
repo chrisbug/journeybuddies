@@ -37,7 +37,7 @@
     <thead>
       <th>Task</th>
       <th>Description</th>
-      <th>Delete</th>
+      <th>For</th>
       <th>Completed</th>
     </thead>
     <tbody>
@@ -47,14 +47,7 @@
         <td>{{task.taskfor}}</td>
         <td>
           <p data-placement="top" data-toggle="tooltip" title="Edit">
-            <button class="btn btn-danger btn-xs" (click)="onDeleteTask(task)" data-title="Edit" data-toggle="modal" data-target="#edit">
-              <span class="glyphicon glyphicon-remove"></span>
-            </button>
-          </p>
-        </td>
-        <td>
-          <p data-placement="top" data-toggle="tooltip" title="Complete">
-            <button class="btn btn-success btn-xs" data-title="Complete" data-toggle="modal" data-target="#delete" (click)="onMarkComplete(task)">
+            <button class="btn btn-success btn-xs" (click)="onDeleteTask(task)" data-title="Edit" data-toggle="modal" data-target="#edit">
               <span class="glyphicon glyphicon-ok"></span>
             </button>
           </p>

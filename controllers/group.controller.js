@@ -162,12 +162,7 @@ export const addtask = (req, res) => {
       if(err){
         return res.status(201).json(false);
       }
-      console.log('*******');
-      console.log('adding taks');
       group.tasks.push(req.body.task)
-      console.log(JSON.stringify(req.body.tasktaskTitle));
-      console.log('*******');
-      console.log
       group.save();
       return res.status(201).json(true);
     });

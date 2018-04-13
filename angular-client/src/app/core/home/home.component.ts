@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("New updates running");
+    console.log('New updates running');
   }
 
 }

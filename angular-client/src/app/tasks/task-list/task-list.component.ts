@@ -40,6 +40,7 @@ export class TaskListComponent implements OnInit {
   onAddTask(task: Task) {
     if (!task) { return; }
     this.tasks.push(task);
+    this.showAddTaskBox();
     this.taskService.addTask(this.group, this.userId, task)
     .subscribe();
   }

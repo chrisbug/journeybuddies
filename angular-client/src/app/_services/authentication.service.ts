@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 export class AuthenticationService {
   token = '';
   _id: string;
-  public url = 'http://localhost:8080/api/';
+  public url = 'http://52.50.230.227/api/';
 
   constructor(private http: HttpClient) {
     this.token = '';
@@ -30,7 +30,7 @@ export class AuthenticationService {
 
   login(email: string, password: string) {
     console.log(email + ' ' + password);
-    return this.http.post('http://127.0.0.1:8080/api/user/authenticate', {email: email, password: password});
+    return this.http.post(`${this.url}user/authenticate`, {email: email, password: password});
     // .map((response: HttpResponse<any>) => {
     //   console.log(response)
     //   let token = response.token;
@@ -53,7 +53,7 @@ export class AuthenticationService {
   }
 
   signup(email: string, password: string, firstName: string, lastName: string) {
-    return this.http.post('http://127.0.0.1:8080/api/user/signup',
+    return this.http.post(`${this.url}user/signup`,
       {email: email, password: password, firstName: firstName, lastName: lastName});
       // .map((response: HttpResponse<any>) => {
       //   console.log(response)

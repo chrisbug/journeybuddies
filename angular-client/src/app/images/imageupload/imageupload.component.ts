@@ -16,6 +16,7 @@ export class ImageuploadComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.onGetImages();
   }
 
   onFileSelected(event) {
@@ -26,6 +27,7 @@ export class ImageuploadComponent implements OnInit {
     if (this.selectedFile) {
       this.imageService.uploadImage(this.selectedFile).subscribe(res => {
         console.log('done');
+        this.onGetImages();
       });
     }
   }
