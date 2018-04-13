@@ -14,9 +14,9 @@ import authRoutes from './routes/auth.route';
 import index from './routes/index';
 import fs from 'fs';
 
-const key = fs.readFileSync('./private.key');
-const cert = fs.readFileSync('./primary.crt');
-const ca = fs.readFileSync('./intermediate.crt');
+const key = fs.readFileSync('./key/rsa.key');
+const cert = fs.readFileSync('./key/domain.crt');
+const ca = fs.readFileSync('./key/domain.crt');
 const options = {
   key: key,
   cert: cert,
