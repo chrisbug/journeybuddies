@@ -16,9 +16,11 @@ import fs from 'fs';
 
 const key = fs.readFileSync('./key/private.key');
 const cert = fs.readFileSync('./key/server.crt');
+const ca = fs.readFileSync('./key/server.crt');
 const options = {
   key: key,
-  cert: cert
+  cert: cert,
+  ca: ca
 }
 const app = express();
 var http = require('https').Server(options, app)
