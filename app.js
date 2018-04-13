@@ -14,13 +14,11 @@ import authRoutes from './routes/auth.route';
 import index from './routes/index';
 import fs from 'fs';
 
-const key = fs.readFileSync('./key/rsa.key');
-const cert = fs.readFileSync('./key/domain.crt');
-const ca = fs.readFileSync('./key/domain.crt');
+const key = fs.readFileSync('./key/private.key');
+const cert = fs.readFileSync('./key/server.crt');
 const options = {
   key: key,
-  cert: cert,
-  ca: ca
+  cert: cert
 }
 const app = express();
 var http = require('https').Server(options, app)
