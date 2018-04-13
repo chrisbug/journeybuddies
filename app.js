@@ -18,7 +18,7 @@ var http = require('http').Server(app)
 var io = require('socket.io')(http);
 // set the port
 const rooms = [];
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8000;
 
 const apiRoutes = express.Router();
 
