@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 export class AuthenticationService {
   token = '';
   _id: string;
-  public url = 'http://52.50.230.227:8000/api/';
+  public url = 'https://52.50.230.227:8000/api/';
 
   constructor(private http: HttpClient) {
     this.token = '';

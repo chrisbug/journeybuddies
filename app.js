@@ -12,13 +12,22 @@ import User from './models/user.model';
 import userRoutes from './routes/user.route';
 import authRoutes from './routes/auth.route';
 import index from './routes/index';
+import fs from 'fs';
 
+const key = fs.readFileSync('../private.key');
+const cert = fs.readFileSync('../primary.crt');
+const ca = fs.readFileSync('../intermediate.crt');
+const options = {
+  key: key,
+  cert: cert,
+  ca: ca
+}
 const app = express();
-var http = require('http').Server(app)
+var http = require('https').Server(options, app)
 var io = require('socket.io')(http);
 // set the port
 const rooms = [];
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 443;
 
 const apiRoutes = express.Router();
 
