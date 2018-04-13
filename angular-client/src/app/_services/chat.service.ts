@@ -1,3 +1,4 @@
+import { AuthenticationService } from './authentication.service';
 import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -5,14 +6,16 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class ChatService {
-  private url = 'http://localhost:8080';
+  private url = '';
   private socket: any;
   private room: string;
 
   sendMessage(message: string, username: string, room: string) {
     this.socket.emit('add-message', message, username, room);
   }
-  constructor() { }
+  constructor(private auth: AuthenticationService) {
+    this.url = auth.getUrl();
+  }
 
   getMessages(room: string) {
     console.log('Messages running');
