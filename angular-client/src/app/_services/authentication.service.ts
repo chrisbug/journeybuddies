@@ -67,7 +67,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    if (this.token !== null) {
+    if (this.token !== null && this.token.length > 2) {
       return true;
     } else {
       return false;

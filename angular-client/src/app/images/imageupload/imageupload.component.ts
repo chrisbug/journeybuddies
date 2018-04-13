@@ -27,7 +27,7 @@ export class ImageuploadComponent implements OnInit {
     if (this.selectedFile) {
       this.imageService.uploadImage(this.selectedFile).subscribe(res => {
         console.log('done');
-        this.onGetImages();
+        setTimeout(this.onGetImages(), 4000);
       });
     }
   }
