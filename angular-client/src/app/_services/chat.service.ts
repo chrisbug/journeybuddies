@@ -14,7 +14,7 @@ export class ChatService {
     this.socket.emit('add-message', message, username, room);
   }
   constructor(private auth: AuthenticationService) {
-    this.url = auth.getUrl();
+    this.url = auth.getUrl().split('/api')[0];
   }
 
   getMessages(room: string) {
