@@ -101,6 +101,7 @@ export const addUserToGroup = (req, res) => {
               } else {
                 console.log('working with user ' + user.email);
                 let addUserToGroup = true;
+                console.log(user.groups);
                 for(let val of user.groups){
                   console.log("checking values here");
                   console.log(group._id);
