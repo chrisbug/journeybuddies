@@ -1,13 +1,32 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
-  <div class="col-xs-6 col-sm-6 col-md-6">
-    <h1>File Upload</h1>
-    <input type="file" (change)="onFileSelected($event)">
-    <button (click)="onUpload()"> Upload</button>
-    <button (click)="onGetImages()"> Tester</button>
+  <div class="col-xs-12 col-sm-12 col-md-6">
+    <div class="row">
+      <h1>Image Upload</h1>
+      <input class="btn btn-primary" type="file" (change)="onFileSelected($event)">
+      <hr>
+      <button (click)="onUpload()" class="btn btn-success"> Upload</button>
+    </div>
   </div>
-  <div class="col-xs-6 col-sm-6 col-md-6">
-    <div *ngFor="let image of imageUrl">
-      <img src={{image}} alt="" width="50px" height="50px"/>
+  <div class="col-xs-12 col-sm-12 col-md-6">
+    <hr>
+    <div class="row">
+      <button (click)="onGetImages()" class="btn btn-default">Reload Images</button>
+    </div>
+    <div class="row" id="imagebox">
+      <div *ngFor="let image of imageUrl; let i = index" id="image">
+        <img src={{image}} alt="" width="60%" height="60%" />
+        <hr>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <div class="col-xs-5 col-sm-5 col-md-5">
+          <a href="{{image}}"><button type="button" class="btn btn-success">Download</button></a>
+          </div>
+          <div class="col-xs-1 col-sm-1 col-md-1"></div>
+          <div class="col-xs-5 col-sm-5 col-md-5">
+            <button type="button" class="btn btn-danger" (click)="onDeleteImage(image, i)">Delete</button>
+          </div>
+        </div>
+        <hr>
+      </div>
     </div>
   </div>
 </div>

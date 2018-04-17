@@ -12,6 +12,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   messages: any = [];
   message: string;
   connection: any;
+  currentGroup: string;
   namespace = 'jpchats';
   room: string; // set to user active group
   username: string;
@@ -22,6 +23,15 @@ export class ChatComponent implements OnInit, OnDestroy {
   // they will then be pushed into message array to be displayed to user.
   ngOnInit() {
     this.room = this.userService.getGroup();
+    this.currentGroup = this.userService.getCurrentGroupName();
+    this.userService.getMessages(this.room)
+      .subscribe(result => {
+          const oldMssages: any = result;
+          for (const i of oldMssages) {
+            console.log(i);
+            this.messages.push(i);
+          }
+      });
     console.log(this.room);
     this.chatService.setRoom(this.room);
     this.username = this.userService.getCurrentUser().firstName;

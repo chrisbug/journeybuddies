@@ -11,6 +11,8 @@ export class UserService {
   public url: string;
   public group: string;
   public currentUser: User;
+  public currentGroupName: string;
+
   constructor(
     private http: HttpClient,
     private authentication: AuthenticationService
@@ -77,14 +79,43 @@ export class UserService {
     this.currentUser = null;
   }
 
-  createGroup(id: string, email: string) {
+  createGroup(id: string, email: string, groupname: string) {
+    console.log(groupname);
     console.log(this.authentication.token);
     console.log('running service');
     console.log(id + ' ' + email);
-    return this.http.post(this.url + 'creategroup', {_id: id, email: email, token: this.authentication.token});
+    return this.http.post(this.url + 'creategroup', { _id: id, email: email, groupname: groupname, token: this.authentication.token});
     // .map((response) => {
     //   console.log('IT REUTNED')
     //   return true;
     // });
   }
+
+  setCurrentGroupName(groupname) {
+    this.currentGroupName = groupname;
+  }
+
+  getCurrentGroupName() {
+    return this.currentGroupName.slice();
+  }
+
+  getMessages(group: string) {
+    console.log('fetching messages with' + this.getCurrentUserId() + ' ' + group);
+    const headers = new HttpHeaders({
+      'token': this.authentication.getToken(),
+      '_id': this.getCurrentUserId(),
+      'groupid': group
+    });
+    return this.http.get(this.url + 'getmessages', { headers: headers });
+  }
+
+  addUserToGroup(email: string) {
+    return this.http.post(this.url + 'addusertogroup',
+      { _id: this.getCurrentUserId(),
+        email: email,
+        groupid: this.group,
+        token: this.authentication.token
+      });
+  }
+
 }

@@ -1,12 +1,37 @@
 <div *ngIf="username">
-  <input type="text" placeholder="EnterMessage" [(ngModel)]="message" name="message" (keyup.enter)="onSendMessage()" />
-  <button (click)="onSendMessage()">Send</button>
+  <div class="col-xs-12 col-sm-12 col-md-12">
+    <h3> Chat for {{currentGroup}}</h3>
+  </div>
   <br>
-  <div *ngFor="let message of messages">
-    <strong>{{message.username}} : </strong>{{message.text}}
+  <div class ="row">
+    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+    <div class="col-xs-8 col-sm-8 col-md-8" id="messageArea">
+      <div *ngFor="let message of messages.reverse()" id="messagesText">
+        <label>{{message.username}}</label><p> {{message.text}}</p>
+        <hr>
+      </div>
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+  </div>
+
+  <hr>
+  <div class="row">
+    <footer>
+      <div class="col-xs-1 col-sm-1 col-md-1"></div>
+
+      <div class="col-xs-7 col-sm-7 col-md-7">
+        <textarea class="form-control" rows="2" placeholder="EnterMessage" [(ngModel)]="message" name="message" (keyup.enter)="onSendMessage()"></textarea>
+        <!-- <input type="text" class="form-control" placeholder="EnterMessage" [(ngModel)]="message" name="message" (keyup.enter)="onSendMessage()" /> -->
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <button class="btn btn-primary" (click)="onSendMessage()">
+          <span class="glyphicon glyphicon-send"> Send</span>
+        </button>
+      </div>
+    </footer>
   </div>
 </div>
 
 <div *ngIf="!username">
-  PLease log in to chat
+  Please log in to chat
 </div>

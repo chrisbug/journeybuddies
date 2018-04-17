@@ -1,0 +1,16 @@
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#messageArea {
+  padding: 5px;
+  height: 400px;
+  overflow: scroll;
+}
+
+.h3 {
+  text-align: center;
+}

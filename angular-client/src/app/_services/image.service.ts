@@ -41,4 +41,14 @@ export class ImageService {
     return this.http.get<string[]>(`${this.auth.getUrl()}getimages`, {headers: headers});
   }
 
+  deleteImage(imageFile: string) {
+    const headers = new HttpHeaders({
+      'token': this.auth.getToken(),
+      '_id': this.user.getCurrentUserId(),
+      'groupid': this.user.getGroup(),
+      'filename': imageFile
+    });
+    return this.http.delete(`${this.auth.getUrl()}removeimage`, { headers: headers });
+  }
+
 }

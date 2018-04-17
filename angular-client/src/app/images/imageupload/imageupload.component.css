@@ -1,0 +1,12 @@
+#imagebox {
+  height: 500px;
+  overflow: scroll;
+}
+
+#image {
+  padding: 25px;
+}
+
+.button {
+  padding: 5px;
+}

@@ -13,7 +13,7 @@ import { AuthenticationService } from '../_services/authentication.service';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
-  title = 'my first AGM project';
+  title = '';
   markerLat: number;
   markerLng: number;
   changeMeetingPoint = false;
@@ -30,6 +30,7 @@ export class MapComponent implements OnInit {
     this.groupId = this.userService.getGroup();
     this.token = this.authenticationService.getToken();
     this.userId = this.userService.getCurrentUserId();
+    this.title = this.userService.getCurrentGroupName();
     this.mapService.getMarkers(this.groupId, this.userId).subscribe( response => {
       console.log(response);
       this.marker = response;

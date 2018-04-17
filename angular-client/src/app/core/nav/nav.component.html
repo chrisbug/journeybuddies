@@ -9,13 +9,28 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" routerLink="/">JourneyBuddies</a>
+      <a class="navbar-brand" routerLink="/">JourneyBuddies <span class="glyphicon glyphicon-plane"></span></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" [ngClass]="{'navbar-collapse collapse in' : toggleMenu === true, 'navbar-collapse collapse' : toggleMenu === false}">
       <ul class="nav navbar-nav">
-        <li class="dropdown" appDropdown>
+        <li routerLinkActive="active" (click)="onToggleMenu()">
+          <a routerLink="/profile"><span class="glyphicon glyphicon-user"> Profile</span></a>
+        </li>
+        <li routerLinkActive="active" (click)="onToggleMenu()">
+          <a routerLink="/images"><span class="glyphicon glyphicon-camera"> Images</span></a>
+        </li>
+        <li routerLinkActive="active" (click)="onToggleMenu()">
+          <a routerLink="/tasks"><span class="glyphicon glyphicon-th-list"> Tasks</span></a>
+        </li>
+        <li routerLinkActive="active" (click)="onToggleMenu()">
+          <a routerLink="/maps"><span class="glyphicon glyphicon-map-marker"> Maps</span></a>
+        </li>
+        <li routerLinkActive="active" (click)="onToggleMenu()">
+          <a routerLink="/chat"><span class="glyphicon glyphicon-envelope"> Chat</span></a>
+        </li>
+        <!-- <li class="dropdown" appDropdown>
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li routerLinkActive="active" (click)="onToggleMenu()"><a routerLink="/profile">Profile</a></li>
@@ -24,13 +39,13 @@
             <li routerLinkActive="active" (click)="onToggleMenu()"><a routerLink="/maps">Maps</a></li>
             <li routerLinkActive="active" (click)="onToggleMenu()"><a routerLink="/chat">Chat</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!authservice.isAuthenticated()" (click)="onToggleMenu()"><a routerLink="/login">Login</a></li>
-        <li *ngIf="!authservice.isAuthenticated()" (click)="onToggleMenu()"><a routerLink="/signup">Signup</a></li>
+        <li *ngIf="!authservice.isAuthenticated()" (click)="onToggleMenu()"><a routerLink="/login"><span class="glyphicon glyphicon-sunglasses"></span>Login</a></li>
+        <li *ngIf="!authservice.isAuthenticated()" (click)="onToggleMenu()"><a routerLink="/signup"><span class="glyphicon glyphicon-check"></span>Signup</a></li>
         <li *ngIf="authservice.isAuthenticated()" (click)="authservice.logout()" (click)="onToggleMenu()">
-          <a routerLink="/">logout</a>
+          <a routerLink="/"><span class="glyphicon glyphicon-alert"></span> Logout</a>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
