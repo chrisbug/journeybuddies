@@ -84,6 +84,7 @@ export const addUserToGroup = (req, res) => {
           console.log(username);
           console.log(req.body.email);
           if(username === req.body.email){
+            console.log('user not being added')
             addUser = false;
           }
         }
@@ -114,6 +115,7 @@ export const addUserToGroup = (req, res) => {
                     console.log('adding ' + group.name + ' to user ' + user.email);
                     user.groups.push(group);
                     user.save();
+                    console.log('user Saved');
                   }
               }
             })
