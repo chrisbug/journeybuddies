@@ -54,6 +54,7 @@ export class UserProfileComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         const newGroupId: any = response;
+        console.log(response);
         this.user.groups.push({
           id: newGroupId,
           name: groupName,

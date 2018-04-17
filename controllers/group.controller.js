@@ -33,7 +33,7 @@ export const createGroup = (req, res) =>{
             }
           });
         });
-        return res.status(200).json(group);
+        return res.status(200).json(newId);
       }
     });
   }
