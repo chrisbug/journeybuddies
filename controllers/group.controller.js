@@ -90,13 +90,7 @@ export const addUserToGroup = (req, res) => {
               if(!user){
                 return res.status(404).json({'success': false, 'message': 'user not found'})
               } else {
-                  let checkingGroupUsers = []
-                  for(let val of user.groups){
-                    checkingGroupUsers.push(val._id);
-                  }
-                  console.log(group._id);
-                  console.log(checkingGroupUsers);
-                  if(!(group._id in checkingGroupUsers)){
+                  if(!(user.email in group.users)){
                     console.log('adding ' + group.name + ' to user' + user.email);
                     user.groups.push(group);
                     user.save();
