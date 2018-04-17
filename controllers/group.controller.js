@@ -107,7 +107,7 @@ export const addUserToGroup = (req, res) => {
                   console.log("checking values here");
                   console.log(group._id);
                   console.log(val._id);
-                  if(group._id === val._id){
+                  if(group.name === val.name){
                     addUserToGroup = false;
                   }
                 }
