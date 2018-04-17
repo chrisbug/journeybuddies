@@ -51,8 +51,7 @@ export class UserProfileComponent implements OnInit {
     this.userService.createGroup(this.user._id, this.user.email, groupName)
       .subscribe(response => {
         console.log(response);
-        let newGroupId: any = response;
-        newGroupId = newGroupId.toString();
+        const newGroupId: string = JSON.stringify(response);
         this.user.groups.push({
           id: newGroupId,
           name: groupName,

@@ -2102,8 +2102,7 @@ var UserProfileComponent = /** @class */ (function () {
         this.userService.createGroup(this.user._id, this.user.email, groupName)
             .subscribe(function (response) {
             console.log(response);
-            var newGroupId = response;
-            newGroupId = newGroupId.toString();
+            var newGroupId = JSON.stringify(response);
             _this.user.groups.push({
                 id: newGroupId,
                 name: groupName,
