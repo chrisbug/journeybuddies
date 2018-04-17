@@ -37,12 +37,10 @@ export class UserProfileComponent implements OnInit {
             (response => {
               this.user = response;
             if (!this.userService.getGroup() && this.user.groups.length > 0) {
-                console.log('prelected user');
                 this.userService.setGroup(this.user.groups[0].id);
                 this.userService.setCurrentGroupName(this.user.groups[0].name);
                 this.currentGroup = this.user.groups[0].name;
               }
-              console.log(this.user.groups);
             })
           );
       });
@@ -53,8 +51,8 @@ export class UserProfileComponent implements OnInit {
     this.userService.createGroup(this.user._id, this.user.email, groupName)
       .subscribe(response => {
         console.log(response);
-        const newGroupId: any = response;
-        console.log(response);
+        let newGroupId: any = response;
+        newGroupId = newGroupId.toString();
         this.user.groups.push({
           id: newGroupId,
           name: groupName,
@@ -73,12 +71,10 @@ export class UserProfileComponent implements OnInit {
 
   onAddUserToGroup(form: NgForm) {
     const email = form.value.useremail;
-    console.log(form.value.useremail);
     this.userService.addUserToGroup(email).subscribe();
   }
 
   checkActiveGroup(name: string, id: string) {
-    console.log(name + ' ' + id);
     if ((name === this.currentGroup) && (id === this.userService.getGroup())) {
       return true;
     }

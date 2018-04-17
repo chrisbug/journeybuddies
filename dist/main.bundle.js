@@ -2089,12 +2089,10 @@ var UserProfileComponent = /** @class */ (function () {
             _this.userService.getUser(_this.id).subscribe((function (response) {
                 _this.user = response;
                 if (!_this.userService.getGroup() && _this.user.groups.length > 0) {
-                    console.log('prelected user');
                     _this.userService.setGroup(_this.user.groups[0].id);
                     _this.userService.setCurrentGroupName(_this.user.groups[0].name);
                     _this.currentGroup = _this.user.groups[0].name;
                 }
-                console.log(_this.user.groups);
             }));
         });
     };
@@ -2105,6 +2103,7 @@ var UserProfileComponent = /** @class */ (function () {
             .subscribe(function (response) {
             console.log(response);
             var newGroupId = response;
+            newGroupId = newGroupId.toString();
             _this.user.groups.push({
                 id: newGroupId,
                 name: groupName,
@@ -2121,11 +2120,9 @@ var UserProfileComponent = /** @class */ (function () {
     };
     UserProfileComponent.prototype.onAddUserToGroup = function (form) {
         var email = form.value.useremail;
-        console.log(form.value.useremail);
         this.userService.addUserToGroup(email).subscribe();
     };
     UserProfileComponent.prototype.checkActiveGroup = function (name, id) {
-        console.log(name + ' ' + id);
         if ((name === this.currentGroup) && (id === this.userService.getGroup())) {
             return true;
         }
