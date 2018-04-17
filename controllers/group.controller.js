@@ -92,6 +92,7 @@ export const addUserToGroup = (req, res) => {
               } else {
                   console.log(user)
                   if(!(group in user.groups)){
+                    console.log('adding ' + group.name + ' to user' + user.email);
                     user.groups.push(group);
                     user.save();
                   }
