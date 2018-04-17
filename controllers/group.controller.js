@@ -73,7 +73,12 @@ export const addUserToGroup = (req, res) => {
       if(err){
         console.error(err);
         return res.status(404).json({'success': false, 'message': 'error try again'});
-      } else {
+      }
+      else if(!group){
+        console.log('no group found with ' + req.bod.groupid);
+        res.status(404);
+      } 
+      else {
         let addUser  = true;
         for(let username of group.users){
           if(username == req.body.email){
