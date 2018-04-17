@@ -92,6 +92,9 @@ export const addUserToGroup = (req, res) => {
               } else {
                 let addUserToGroup = true;
                 for(let val of user.groups){
+                  console.log("checking values here");
+                  console.log(group._id);
+                  console.log(val._id);
                   if(group._id === val._id){
                     addUserToGroup = false;
                   }
