@@ -81,15 +81,18 @@ export const addUserToGroup = (req, res) => {
           }
         }
         if(addUser){
+          console.log('working on group ' + group.name)
           group.users.push(req.body.email);
           for(let user of group.users){
             User.findOne({email: user}, function(err, user){
+              console.log('USER FOUND')
               if(err){
                 return res.status(404).json({'success': false, 'message': 'error adding user to groups'})
               }
               if(!user){
                 return res.status(404).json({'success': false, 'message': 'user not found'})
               } else {
+                console.log('working with user ' + user.email);
                 let addUserToGroup = true;
                 for(let val of user.groups){
                   console.log("checking values here");
