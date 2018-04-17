@@ -37,7 +37,7 @@ export class UserProfileComponent implements OnInit {
             (response => {
               this.user = response;
             if (!this.userService.getGroup() && this.user.groups.length > 0) {
-                this.userService.setGroup(this.user.groups[0].id);
+                this.userService.setGroup(this.user.groups[0]._id);
                 this.userService.setCurrentGroupName(this.user.groups[0].name);
                 this.currentGroup = this.user.groups[0].name;
               }
@@ -50,14 +50,15 @@ export class UserProfileComponent implements OnInit {
     const groupName = form.value.groupName;
     this.userService.createGroup(this.user._id, this.user.email, groupName)
       .subscribe(response => {
-        console.log(response);
-        const newGroupId: string = JSON.stringify(response);
+        const newGroupId: string = JSON.stringify(response).split('"')[1];
+        console.log(newGroupId);
         this.user.groups.push({
-          id: newGroupId,
+          _id: newGroupId,
           name: groupName,
           admin: this.userService.getCurrentUserId(),
           users: []
         });
+        console.log(this.user.groups);
     });
   }
 
