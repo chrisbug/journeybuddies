@@ -55,7 +55,7 @@ export class UserProfileComponent implements OnInit {
         console.log(response);
         const newGroupId: any = response;
         this.user.groups.push({
-          id: response.toString(),
+          id: newGroupId,
           name: groupName,
           admin: this.userService.getCurrentUserId(),
           users: []
