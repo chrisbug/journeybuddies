@@ -30,7 +30,7 @@ router.route('/creategroup')
   .post(groupController.createGroup);
 
 router.route('/addusertogroup')
-  .put(groupController.addUserToGroup);
+  .post(groupController.addUserToGroup);
 
 router.route('/getmeetingpoint')
   .get(groupController.getGroupMeetingPoint)
@@ -50,10 +50,16 @@ router.route('/marktaskcomplete')
 router.route('/deletetask')
   .delete(groupController.deleteTask)
 
+router.route('/getmessages')
+  .get(groupController.getGroupMessages)
+
 router.route('/uploadimage')
   .post(upload.single('image'), imageController.uploadFile)
 
 router.route('/getimages')
   .get(imageController.getGroupImages)
+
+router.route('/removeimage')
+  .delete(imageController.removeImage)
 
 export default router;

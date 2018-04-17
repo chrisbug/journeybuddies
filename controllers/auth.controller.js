@@ -20,8 +20,6 @@ export const apiRoute = function(req, res, next){
           else if(user){
             //decode the token
             if(token){
-              console.log(token);
-              console.log(user.salt)
                 //verfies secerte
               jwt.verify(token, user.salt, function(err, decoded){
               if(err){

@@ -6,11 +6,13 @@ import crypto from 'crypto';
 
 export const createGroup = (req, res) =>{
   console.log("making new group started")
-  if(!req.body.email || !req.body._id){
+  if (!req.body.email || !req.body._id || !req.body.groupname){
+    console.log(req.body.groupname);
     return res.status(404).json({success: false, message:'Error with object'})
   } else {
     console.log("making new group")
     let newgroup = new Group ({
+      name: req.body.groupname,
       admin: req.body._id,
       users: [req.body.email]
     });
@@ -21,16 +23,17 @@ export const createGroup = (req, res) =>{
       } else{
         let newId = group._id;
         User.findById(group.admin, function(err, user){
-          user.groups.push(newId);
+          user.groups.push(group);
           user.save(function(err, updateduser){
             if (err){
+              console.log(err);
               res.status(404).json();
             } else{
-              console.log(user.groups);
+              console.log(updateduser.groups);
             }
           });
         });
-        return res.status(200).json(group._id);
+        return res.status(200).json(group);
       }
     });
   }
@@ -44,6 +47,7 @@ export const getGroup = (req, res) => {
         res.status(404).json({success: false, message:'no user found with id'})
       } else{
         res.status(200).json({
+          groupname: group.groupname,
           id: group._id,
           admin: group.admin,
           users: group.users,
@@ -60,11 +64,14 @@ export const getGroup = (req, res) => {
 export const addUserToGroup = (req, res) => {
   console.log("adding a user to group")
   if(!req.body.email || !req.body.groupid){
-    return res.status().json({success: false, message:'Error with request'})
+    console.log(req.body.groupid);
+    console.log('missing required');
+    return res.status(404).json({success: false, message:'Error with request'})
   } else {
     let userEmail = req.body.email;
     Group.findById(req.body.groupid , function(err, group){
       if(err){
+        console.error(err);
         return res.status(404).json({'success': false, 'message': 'error try again'});
       } else {
         let addUser  = true;
@@ -84,7 +91,7 @@ export const addUserToGroup = (req, res) => {
                 return res.status(404).json({'success': false, 'message': 'user not found'})
               } else {
                   console.log(user)
-                  user.groups.push(group._id)
+                  user.groups.push(group);
                   user.save();
               }
             })
@@ -96,6 +103,23 @@ export const addUserToGroup = (req, res) => {
     })
 
   }
+}
+
+export const getGroupMessages = (req, res) => {
+  if(req.headers['groupid']){
+    let id = req.headers['groupid'];
+    console.log(id);
+    Group.findById(id, function(err, group){
+      console.log(group);
+      if(err){
+        return res.status(404);
+      } else {
+        console.log(group.messages);
+        return res.status(201).json(group.messages);
+      }
+    })
+  }
+  return res.status(201);
 }
 
 export const setGroupMeetingPoint = (req, res) => {

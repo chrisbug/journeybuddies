@@ -24,6 +24,7 @@ const options = {
 }
 const app = express();
 var http = require('https').Server(options, app)
+//var http = require('http').Server(app)
 var io = require('socket.io')(http);
 // set the port
 const rooms = [];
@@ -87,6 +88,14 @@ nsp.on('connection', (socket) => {
     console.log(message);
     nsp.to(room).emit('message' + room, { type: 'new-message', text: message, username: username })
     console.log('message'+room)
+    Group.findById(room, function (err, group) {
+      if (err) {
+        console.log(err);
+      }
+      group.messages.push({ username: username, text: message });
+      console.log(group.messages);
+      group.save();
+    });
   });
 
   socket.on('room', function(room){

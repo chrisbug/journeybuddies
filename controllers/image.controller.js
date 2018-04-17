@@ -86,3 +86,20 @@ export const getGroupImages = (req, res) => {
     res.status(201);
   }
 }
+
+export const removeImage = (req, res) => {
+  if (!req.headers['groupid'] || !req.headers['filename']) {
+    return res.status(404);
+  } else {
+    const path = req.headers['filename'];
+    console.log(path);
+    s3fsImpl.unlink(path, function (err) {
+      if (err) {
+        console.log(err)
+        res.status(404)
+      } else {
+        res.status(201).json();
+      }
+    });
+  }
+}
