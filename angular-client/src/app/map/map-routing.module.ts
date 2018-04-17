@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 const mapRoutes: Routes = [
   { path: 'maps', component: MapComponent }
 ];
-
 @NgModule({
   imports: [RouterModule.forChild(mapRoutes)],
   exports: [RouterModule]

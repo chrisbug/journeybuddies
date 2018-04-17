@@ -91,8 +91,10 @@ export const addUserToGroup = (req, res) => {
                 return res.status(404).json({'success': false, 'message': 'user not found'})
               } else {
                   console.log(user)
-                  user.groups.push(group);
-                  user.save();
+                  if(!(group in user.group)){
+                    user.groups.push(group);
+                    user.save();
+                  }
               }
             })
           }

@@ -6,12 +6,11 @@ import { ProfileComponent } from './profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const profileRoutes: Routes = [
-  {path: 'profile',children:[
+  {path: 'profile', children: [
     {path: '' , component: ProfileComponent},
     {path: ':id', component: UserProfileComponent}
-  ] },
-]
-
+  ]}
+];
 
 @NgModule({
   imports: [

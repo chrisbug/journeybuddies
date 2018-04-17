@@ -27,6 +27,9 @@ export class UserProfileComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    if (!this.userService.getCurrentUserId()) {
+      this.router.navigate(['login']);
+    }
     this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
@@ -71,5 +74,13 @@ export class UserProfileComponent implements OnInit {
     const email = form.value.useremail;
     console.log(form.value.useremail);
     this.userService.addUserToGroup(email).subscribe();
+  }
+
+  checkActiveGroup(name: string, id: string) {
+    console.log(name + ' ' + id);
+    if ((name === this.currentGroup) && (id === this.userService.getGroup())) {
+      return true;
+    }
+    return false;
   }
 }

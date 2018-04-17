@@ -5,9 +5,8 @@ import { CommonModule } from '@angular/common';
 
 
 const chatRoutes: Routes = [
-  {path: 'chat', component: ChatComponent }
+  { path: 'chat', component: ChatComponent }
 ];
-
 @NgModule({
   imports: [RouterModule.forChild(chatRoutes)],
   exports: [RouterModule]

@@ -15,19 +15,19 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" [ngClass]="{'navbar-collapse collapse in' : toggleMenu === true, 'navbar-collapse collapse' : toggleMenu === false}">
       <ul class="nav navbar-nav">
-        <li routerLinkActive="active" (click)="onToggleMenu()">
+        <li *ngIf="authservice.isAuthenticated()" routerLinkActive="active" (click)="onToggleMenu()">
           <a routerLink="/profile"><span class="glyphicon glyphicon-user"> Profile</span></a>
         </li>
-        <li routerLinkActive="active" (click)="onToggleMenu()">
+        <li *ngIf="authservice.isAuthenticated()" routerLinkActive="active" (click)="onToggleMenu()">
           <a routerLink="/images"><span class="glyphicon glyphicon-camera"> Images</span></a>
         </li>
-        <li routerLinkActive="active" (click)="onToggleMenu()">
+        <li *ngIf="authservice.isAuthenticated()" routerLinkActive="active" (click)="onToggleMenu()">
           <a routerLink="/tasks"><span class="glyphicon glyphicon-th-list"> Tasks</span></a>
         </li>
-        <li routerLinkActive="active" (click)="onToggleMenu()">
+        <li *ngIf="authservice.isAuthenticated()" routerLinkActive="active" (click)="onToggleMenu()">
           <a routerLink="/maps"><span class="glyphicon glyphicon-map-marker"> Maps</span></a>
         </li>
-        <li routerLinkActive="active" (click)="onToggleMenu()">
+        <li *ngIf="authservice.isAuthenticated()" routerLinkActive="active" (click)="onToggleMenu()">
           <a routerLink="/chat"><span class="glyphicon glyphicon-envelope"> Chat</span></a>
         </li>
         <!-- <li class="dropdown" appDropdown>

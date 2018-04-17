@@ -1,3 +1,4 @@
+import { AuthGuard } from './_guards/auth.guard';
 import { ImageService } from './_services/image.service';
 import { ImagesModule } from './images/images.module';
 import { TasksModule } from './tasks/tasks.module';

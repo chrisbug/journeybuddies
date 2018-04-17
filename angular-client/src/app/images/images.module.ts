@@ -1,3 +1,4 @@
+import { AuthGuard } from './../_guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImageuploadComponent } from './imageupload/imageupload.component';

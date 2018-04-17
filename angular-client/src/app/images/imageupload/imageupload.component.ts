@@ -1,6 +1,8 @@
 import { ImageService } from './../../_services/image.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../_services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-imageupload',
@@ -12,10 +14,15 @@ export class ImageuploadComponent implements OnInit {
   selectedFile: File = null;
   constructor(
     private http: HttpClient,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    if (!this.userService.getCurrentUserId()) {
+      this.router.navigate(['login']);
+    }
     this.onGetImages();
   }
 

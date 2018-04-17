@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserService } from './../../_services/user.service';
 import { TaskService } from './../../_services/task.service';
@@ -24,6 +25,7 @@ export class TaskListComponent implements OnInit {
   constructor(
    private taskService: TaskService,
    private userService: UserService,
+   private router: Router
   ) { }
 
   showAddTaskBox() {
@@ -31,6 +33,9 @@ export class TaskListComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.userService.getCurrentUserId()) {
+      this.router.navigate(['login']);
+    }
     this.userId = this.userService.getCurrentUserId();
     this.group = this.userService.getGroup();
     this.taskService.getTasks(this.group, this.userId)

@@ -6,7 +6,7 @@
   <div class ="row">
     <div class="col-xs-1 col-sm-1 col-md-1"></div>
     <div class="col-xs-8 col-sm-8 col-md-8" id="messageArea">
-      <div *ngFor="let message of messages.reverse()" id="messagesText">
+      <div *ngFor="let message of messages" id="messagesText">
         <label>{{message.username}}</label><p> {{message.text}}</p>
         <hr>
       </div>

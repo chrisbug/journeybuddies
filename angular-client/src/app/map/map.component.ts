@@ -6,6 +6,7 @@ import { ViewChild } from '@angular/core';
 import { AgmMap } from '@agm/core';
 import { getHostElement } from '@angular/core/src/render3';
 import { AuthenticationService } from '../_services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-maps',
@@ -24,9 +25,14 @@ export class MapComponent implements OnInit {
 
   constructor(private mapService: MapService,
     private userService: UserService,
-    private authenticationService: AuthenticationService ) {}
+    private authenticationService: AuthenticationService,
+    private router: Router,
+   ) {}
 
   ngOnInit() {
+    if (!this.userService.getCurrentUserId()) {
+      this.router.navigate(['login']);
+    }
     this.groupId = this.userService.getGroup();
     this.token = this.authenticationService.getToken();
     this.userId = this.userService.getCurrentUserId();
