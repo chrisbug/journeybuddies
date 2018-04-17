@@ -23,7 +23,7 @@ export const createGroup = (req, res) =>{
       } else{
         let newId = group._id;
         User.findById(group.admin, function(err, user){
-          user.groups.push(group);
+          user.groups.push(newgroup);
           user.save(function(err, updateduser){
             if (err){
               console.log(err);

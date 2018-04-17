@@ -34,8 +34,9 @@ export class UserProfileComponent implements OnInit {
             (response => {
               this.user = response;
             if (!this.userService.getGroup() && this.user.groups.length > 0) {
+                console.log('prelected user');
                 this.userService.setGroup(this.user.groups[0].id);
-              this.userService.setCurrentGroupName(this.user.groups[0].name);
+                this.userService.setCurrentGroupName(this.user.groups[0].name);
                 this.currentGroup = this.user.groups[0].name;
               }
               console.log(this.user.groups);
@@ -50,7 +51,12 @@ export class UserProfileComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         const newGroupId: any = response;
-        this.user.groups.push(newGroupId);
+        this.user.groups.push({
+          id: response.toString(),
+          name: groupName,
+          admin: this.userService.getCurrentUserId(),
+          users: []
+        });
     });
   }
 
