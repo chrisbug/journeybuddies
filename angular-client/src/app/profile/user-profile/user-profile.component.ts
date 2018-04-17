@@ -40,6 +40,8 @@ export class UserProfileComponent implements OnInit {
                 this.userService.setGroup(this.user.groups[0]._id);
                 this.userService.setCurrentGroupName(this.user.groups[0].name);
                 this.currentGroup = this.user.groups[0].name;
+              } else {
+                this.currentGroup = this.userService.getCurrentGroupName();
               }
             })
           );
