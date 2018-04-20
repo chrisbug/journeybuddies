@@ -32,39 +32,11 @@ export class AuthenticationService {
   login(email: string, password: string) {
     console.log(email + ' ' + password);
     return this.http.post(`${this.url}user/authenticate`, {email: email, password: password});
-    // .map((response: HttpResponse<any>) => {
-    //   console.log(response)
-    //   let token = response.token;
-    //   let id = response.user._id;
-    //   let username = response.user.firstName + ' ' + response.user.lastName;
-    //   if(token){
-    //     this.token = token;
-    //     //store email and jwt token in local storage to keep
-    //     localStorage.setItem('currentUser', JSON.stringify({email: email, token: token}));
-    //     localStorage.setItem('userId', id);
-    //     localStorage.setItem('userFristName', username);
-
-    //     //return true to indicate succeslful login
-    //     return true;
-    //   } else {
-    //     //return false to indicate failed login
-    //     return false;
-    //   }
-    // });
   }
 
   signup(email: string, password: string, firstName: string, lastName: string) {
     return this.http.post(`${this.url}user/signup`,
       {email: email, password: password, firstName: firstName, lastName: lastName});
-      // .map((response: HttpResponse<any>) => {
-      //   console.log(response)
-      //   if(response.success){
-      //     localStorage.setItem('currentUser', JSON.stringify({email: email, token: response.token}));
-      //     return true;
-      //   } else {
-      //     return false;
-      //   }
-      // });
   }
 
   isAuthenticated() {

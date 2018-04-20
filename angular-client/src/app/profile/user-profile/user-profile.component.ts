@@ -62,6 +62,7 @@ export class UserProfileComponent implements OnInit {
         });
         console.log(this.user.groups);
     });
+    form.reset();
   }
 
   onSetGroup(group: any) {
@@ -73,7 +74,9 @@ export class UserProfileComponent implements OnInit {
 
   onAddUserToGroup(form: NgForm) {
     const email = form.value.useremail;
-    this.userService.addUserToGroup(email).subscribe();
+    this.userService.addUserToGroup(email).subscribe(result => {
+      form.reset();
+    });
   }
 
   checkActiveGroup(name: string, id: string) {

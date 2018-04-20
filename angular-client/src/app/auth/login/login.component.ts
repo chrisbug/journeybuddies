@@ -1,3 +1,4 @@
+import { catchError } from 'rxjs/operators';
 import { UserService } from '../../_services/user.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
         this.userService.getUserByEmail(email)
           .subscribe(result => {
             console.log(result);
+              console.log('error');
             this.userService.setCurrentUser(result);
             this.router.navigate(['profile']);
           });

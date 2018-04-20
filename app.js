@@ -23,12 +23,13 @@ const options = {
   ca: ca
 }
 const app = express();
-var http = require('https').Server(options, app)
-//var http = require('http').Server(app)
-var io = require('socket.io')(http);
+var https = require('https').Server(options, app)
+var http = require('http').Server(app)
+var io = require('socket.io')(https);
 // set the port
 const rooms = [];
 const port = process.env.PORT || 443;
+const appPort = 80;
 
 const apiRoutes = express.Router();
 
@@ -108,8 +109,10 @@ nsp.on('connection', (socket) => {
   });
 })
 
+http.listen(appPort, () =>{
+  console.log('app server listening')
+} )
 
-
-http.listen(port, () => {
+https.listen(port, () => {
   console.log('Server runnong on port: ' + port)
 });
