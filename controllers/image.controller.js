@@ -55,7 +55,7 @@ export const mobileUploads = (req, res) => {
       }
     })
   )
-  res.status(201).json();
+  res.status(200).json();
 }
 
 export const uploadFile = (req, res) => { 
