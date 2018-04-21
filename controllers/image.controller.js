@@ -47,6 +47,7 @@ export const mobileUploads = (req, res) => {
   let selectedGroupId = req.file.originalname
   let unlinkpath = 'uploads/'+ req.file.filename
   const path = selectedGroupId + '/' + timestamp;
+  console.log(path);
   var stream = fs.createReadStream(req.file.path);
   s3fsImpl.writeFile(path, stream, ).then(
     fs.unlink(unlinkpath, function (err) {
