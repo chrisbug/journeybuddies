@@ -42,7 +42,6 @@ const upload = multer({
 export const mobileUploads = (req, res) => {
   console.log(req.file);
   console.log(req.headers['_id']);
-  console.log(req.body);
   let originalname = JSON.stringify(Date.now);
   const path = req.body.groupid + '/' + originalname;
   var stream = fs.createReadStream(path);
