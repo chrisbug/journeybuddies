@@ -62,7 +62,7 @@ router.route('/getimages')
 router.route('/removeimage')
   .delete(imageController.removeImage)
 
-router.route('/mobileimageupload')
+router.route('/mobileimagelod')
   .post(upload.single('image'), imageController.mobileUploads)
 
 export default router;
