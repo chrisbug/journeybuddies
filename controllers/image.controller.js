@@ -41,9 +41,8 @@ const upload = multer({
 
 export const mobileUploads = (req, res) => {
   console.log(req.file);
-  console.log(req);
   let originalname = JSON.stringify(Date.now);
-  const path = req.body.groupid + '/' + originalname;
+  const path = req.file.filename + '/' + originalname;
   var stream = fs.createReadStream(path);
   s3fsImpl.writeFile(path, stream, ).then(
     fs.unlink(path, function (err) {
