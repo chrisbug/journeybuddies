@@ -40,19 +40,21 @@ const upload = multer({
 });
 
 export const mobileUploads = (req, res) => {
-  let data = Buffer.from(req.body.myFile, 'base64')
-  const path = req.body.groupid + '/' + req.body.originalname + '.png';
-  fs.writeFile(data,'./uploads/'+ path);
-  var stream = fs.createReadStream('./uploads/'+path);
-  s3fsImpl.writeFile(path, stream).then(
-    fs.unlink('./uploads/'+path, function(err){
-      if(err){
+  console.log(req.file);
+  console.log(req.headers['_id']);
+  console.log(req.body);
+  let originalname = JSON.stringify(Date.now);
+  const path = req.body.groupid + '/' + originalname;
+  var stream = fs.createReadStream(path);
+  s3fsImpl.writeFile(path, stream, ).then(
+    fs.unlink(path, function (err) {
+      if (err) {
         console.log(err);
       } else {
         res.status(201);
       }
     })
-  );
+  )
   res.status(201).json();
 }
 
