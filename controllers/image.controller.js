@@ -42,7 +42,7 @@ const upload = multer({
 export const mobileUploads = (req, res) => {
   let file = req.file;
   console.log(file.filename);
-  console.log(req.file);
+  console.log('that was a file');
   let originalname = JSON.stringify(Date.now);
   const path = req.file.filename + '/' + originalname;
   var stream = fs.createReadStream(path);
