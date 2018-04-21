@@ -45,7 +45,7 @@ export const mobileUploads = (req, res) => {
   console.log('that was a file');
   let timestamp = JSON.stringify(Date.now());
   let selectedGroupId = req.file.originalname;
-  let unlinkpath = 'uploads/'+ selectedGroupId
+  let unlinkpath = 'uploads/'+ req.filename;
   const path = selectedGroupId + '/' + timestamp;
   console.log(path);
   var stream = fs.createReadStream(unlinkpath);
