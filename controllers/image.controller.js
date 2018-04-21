@@ -40,6 +40,8 @@ const upload = multer({
 });
 
 export const mobileUploads = (req, res) => {
+  let file = req.file;
+  console.log(file.filename);
   console.log(req.file);
   let originalname = JSON.stringify(Date.now);
   const path = req.file.filename + '/' + originalname;
