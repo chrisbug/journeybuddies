@@ -54,10 +54,10 @@ export const mobileUploads = (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        return res.status(201).json();
+        res.status(201).json();
       }
     })
-  )
+  ).wait();
   res.status(200).json();
 }
 
